@@ -1,16 +1,28 @@
 # grocery_app
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Complex UI has done simply\
+Build a Complete mobile app With WEB admin portal\
+State management\
+Firebase\
+Clean code and avoid Boilerplate code\
+Styles for UI\
+State Management: setState, lifting state up via callbacks, global access, scoped access with Provider and ChangeNotifier\
+Navigation & Custom navigation\
+Dart\
+Forms, input handling, and validation\
+Managing and updating packages\
+Databases and Cloud Firestore\
+ListViews and multiple UI states\
+Firebase Authentication\
+Firebase Firestore\
+Firebase Storage\
+Dart Programming Language - Fundamentals and intermediate&expert topics\
+How to understand Flutter Mobile Development by building apps incrementally.\
+How to design, build, debug Flutter apps\
+How to get Flutter apps to communicate with a real-time database - Firestore\
+How to build robust apps with Flutter\
+Flutter AppBar\
+Flutter Material Design\
+Flutter Row and Column\
+Flutter ListView Builder\
+Payment gateway
