@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/services/utils.dart';
+import 'package:grocery_app/widgets/feed_items.dart';
 import 'package:grocery_app/widgets/on_sale_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
@@ -115,6 +116,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
+          ),
+        ),
+        GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: 2,
+          childAspectRatio: size.width / (size.height * 0.6),
+          // mainAxisSpacing: 10.0,
+          // crossAxisSpacing: 10.0,
+          children: List.generate(
+            4,
+            (index) {
+              return const FeedsWidget();
+            },
           ),
         ),
       ],
