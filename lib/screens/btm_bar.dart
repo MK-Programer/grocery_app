@@ -35,7 +35,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     },
   ];
 
-  int _selectedIndex = 3;
+  int _selectedIndex = 1;
 
   void _selectedPage(int index) {
     setState(
@@ -49,48 +49,53 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
     bool isDark = themeState.getDarkTheme;
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     _pages[_selectedIndex]["title"],
-      //   ),
-      // ),
-      body: _pages[_selectedIndex]["page"],
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: isDark ? Colors.white10 : Colors.grey,
-        selectedItemColor: isDark ? Colors.lightBlue.shade200 : Colors.black87,
-        backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        onTap: _selectedPage,
-        currentIndex: _selectedIndex,
-        items: [
-          BottomNavigationBarItem(
-            label: "Home",
-            icon: Icon(
-              _selectedIndex == 0 ? IconlyBold.home : IconlyLight.home,
+    return SafeArea(
+      child: Scaffold(
+        // appBar: AppBar(
+        //   title: Text(
+        //     _pages[_selectedIndex]["title"],
+        //   ),
+        // ),
+        body: _pages[_selectedIndex]["page"],
+        bottomNavigationBar: BottomNavigationBar(
+          unselectedItemColor: isDark ? Colors.white10 : Colors.grey,
+          selectedItemColor:
+              isDark ? Colors.lightBlue.shade200 : Colors.black87,
+          backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          onTap: _selectedPage,
+          currentIndex: _selectedIndex,
+          items: [
+            BottomNavigationBarItem(
+              label: "Home",
+              icon: Icon(
+                _selectedIndex == 0 ? IconlyBold.home : IconlyLight.home,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: "Categories",
-            icon: Icon(
-              _selectedIndex == 1 ? IconlyBold.category : IconlyLight.category,
+            BottomNavigationBarItem(
+              label: "Categories",
+              icon: Icon(
+                _selectedIndex == 1
+                    ? IconlyBold.category
+                    : IconlyLight.category,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: "Cart",
-            icon: Icon(
-              _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy,
+            BottomNavigationBarItem(
+              label: "Cart",
+              icon: Icon(
+                _selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy,
+              ),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: "User",
-            icon: Icon(
-              _selectedIndex == 3 ? IconlyBold.user2 : IconlyLight.user2,
+            BottomNavigationBarItem(
+              label: "User",
+              icon: Icon(
+                _selectedIndex == 3 ? IconlyBold.user2 : IconlyLight.user2,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
