@@ -1,6 +1,6 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery_app/provider/dark_theme_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:grocery_app/services/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,29 +10,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<String> _offerImages = [
+    "offer1",
+    "offer2",
+    "offer3",
+    "offer4",
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
-    return Scaffold(
-      body: Center(
-        child: SwitchListTile(
-          title: const Text(
-            "Theme",
+    final Utils utils = Utils(context);
+    final themeState = utils.getTheme;
+    Size size = utils.getScreenSize;
+    return SizedBox(
+      height: size.height * 0.33,
+      child: Swiper(
+        itemBuilder: (context, index) {
+          return Image.asset(
+            "assets/images/offers/${_offerImages[index]}.jpg",
+            fit: BoxFit.fill,
+          );
+        },
+        itemCount: _offerImages.length,
+        pagination: const SwiperPagination(
+          alignment: Alignment.bottomCenter,
+          builder: DotSwiperPaginationBuilder(
+            color: Colors.white,
+            activeColor: Colors.red,
           ),
-          secondary: Icon(
-            themeState.getDarkTheme
-                ? Icons.dark_mode_outlined
-                : Icons.light_mode_outlined,
-          ),
-          value: themeState.getDarkTheme,
-          onChanged: (bool value) {
-            setState(
-              () {
-                themeState.setDarkTheme = value;
-              },
-            );
-          },
         ),
+        autoplay: true,
+        // control: const SwiperControl(),
       ),
     );
   }

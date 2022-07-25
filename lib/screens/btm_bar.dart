@@ -21,22 +21,26 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     {
       "page": const HomeScreen(),
       "title": "Home Screen",
+      "visibility": false,
     },
     {
       "page": const CategoriesScreen(),
       "title": "Categories",
+      "visibility": true,
     },
     {
       "page": const CartScreen(),
       "title": "Cart Screen",
+      "visibility": true,
     },
     {
       "page": const UserScreen(),
       "title": "User Screen",
+      "visibility": false,
     },
   ];
 
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void _selectedPage(int index) {
     setState(
@@ -52,14 +56,23 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     bool isDark = themeState.getDarkTheme;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title: TextWidget(
-            text: _pages[_selectedIndex]["title"],
-            color: isDark ? Colors.white : Colors.black,
-            textSize: 24.0,
-            isTitle: true,
+        appBar: PreferredSize(
+          preferredSize: Size(
+            double.infinity,
+            56,
+          ),
+          child: Visibility(
+            visible: _pages[_selectedIndex]["visibility"],
+            child: AppBar(
+              elevation: 0.0,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              title: TextWidget(
+                text: _pages[_selectedIndex]["title"],
+                color: isDark ? Colors.white : Colors.black,
+                textSize: 24.0,
+                isTitle: true,
+              ),
+            ),
           ),
         ),
         body: _pages[_selectedIndex]["page"],
