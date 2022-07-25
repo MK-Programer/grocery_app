@@ -91,14 +91,14 @@ class _UserScreenState extends State<UserScreen> {
               color: color,
             ),
             _listTiles(
-              title: "Forget password",
-              icon: IconlyLight.unlock,
+              title: "Viewed ",
+              icon: IconlyLight.show,
               onPressed: () {},
               color: color,
             ),
             _listTiles(
-              title: "Viewed ",
-              icon: IconlyLight.show,
+              title: "Forget password",
+              icon: IconlyLight.unlock,
               onPressed: () {},
               color: color,
             ),
@@ -125,13 +125,9 @@ class _UserScreenState extends State<UserScreen> {
             _listTiles(
               title: "Logout ",
               icon: IconlyLight.logout,
-              onPressed: () {},
-              color: color,
-            ),
-            _listTiles(
-              title: "Wishlist",
-              icon: IconlyLight.heart,
-              onPressed: () {},
+              onPressed: () async {
+                await _showLogoutDialog();
+              },
               color: color,
             ),
           ],
@@ -163,6 +159,57 @@ class _UserScreenState extends State<UserScreen> {
               onPressed: () {},
               child: const Text(
                 "Update",
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showLogoutDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Image.asset(
+                'assets/images/warning-sign.png',
+                height: 20.0,
+                width: 20.0,
+                fit: BoxFit.fill,
+              ),
+              const SizedBox(
+                width: 8.0,
+              ),
+              const Text(
+                "Sign out",
+              ),
+            ],
+          ),
+          content: const Text(
+            "Do you want to sign out?",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+              child: TextWidget(
+                text: "Cancel",
+                color: Colors.cyan,
+                textSize: 18.0,
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: TextWidget(
+                text: "Ok",
+                color: Colors.red,
+                textSize: 18.0,
               ),
             ),
           ],
