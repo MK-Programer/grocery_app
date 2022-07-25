@@ -5,6 +5,7 @@ import 'package:grocery_app/screens/cart.dart';
 import 'package:grocery_app/screens/categories.dart';
 import 'package:grocery_app/screens/home_screen.dart';
 import 'package:grocery_app/screens/user.dart';
+import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     },
     {
       "page": const CategoriesScreen(),
-      "title": "Categories Screen",
+      "title": "Categories",
     },
     {
       "page": const CartScreen(),
@@ -51,11 +52,16 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     bool isDark = themeState.getDarkTheme;
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(
-        //     _pages[_selectedIndex]["title"],
-        //   ),
-        // ),
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          title: TextWidget(
+            text: _pages[_selectedIndex]["title"],
+            color: isDark ? Colors.white : Colors.black,
+            textSize: 24.0,
+            isTitle: true,
+          ),
+        ),
         body: _pages[_selectedIndex]["page"],
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: isDark ? Colors.white10 : Colors.grey,

@@ -4,7 +4,14 @@ import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 class CategoriesWidget extends StatelessWidget {
-  const CategoriesWidget({Key? key}) : super(key: key);
+  final String imgName, catText;
+  final Color passedColor;
+  const CategoriesWidget({
+    Key? key,
+    required this.imgName,
+    required this.catText,
+    required this.passedColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +25,10 @@ class CategoriesWidget extends StatelessWidget {
       child: Container(
         // height: screenWidth * 0.6,
         decoration: BoxDecoration(
-          color: Colors.red.withOpacity(0.1),
+          color: passedColor.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16.0),
           border: Border.all(
-            color: Colors.red.withOpacity(0.7),
+            color: passedColor.withOpacity(0.7),
             width: 2.0,
           ),
         ),
@@ -30,17 +37,17 @@ class CategoriesWidget extends StatelessWidget {
             Container(
               height: screenWidth * 0.3,
               width: screenWidth * 0.3,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    "assets/images/cat/veg.png",
+                    "assets/images/cat/$imgName.png",
                   ),
                   fit: BoxFit.fill,
                 ),
               ),
             ),
             TextWidget(
-              text: "Category name",
+              text: catText,
               color: color,
               textSize: 20.0,
               isTitle: true,
