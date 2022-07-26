@@ -1,6 +1,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery_app/inner_screens/on_sale_screen.dart';
+import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/feed_items.dart';
 import 'package:grocery_app/widgets/on_sale_widget.dart';
@@ -24,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final Utils utils = Utils(context);
-    final themeState = utils.getTheme;
     Size size = utils.getScreenSize;
     final color = utils.color;
     return ListView(
@@ -51,7 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            GlobalMethods.navigateTo(
+              context: context,
+              routName: OnSaleScreen.routeName,
+            );
+          },
           child: TextWidget(
             text: "View all",
             maxLines: 1,
@@ -123,6 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 2,
           childAspectRatio: size.width / (size.height * 0.6),
+          // padding: EdgeInsets.zero,
           // mainAxisSpacing: 10.0,
           // crossAxisSpacing: 10.0,
           children: List.generate(

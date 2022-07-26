@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery_app/consts/theme_data.dart';
+import 'package:grocery_app/inner_screens/on_sale_screen.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
 import 'package:grocery_app/screens/btm_bar.dart';
 import 'package:provider/provider.dart';
@@ -46,17 +47,21 @@ class _MyAppState extends State<MyApp> {
           },
         ),
       ],
-      child:
-          Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: Styles.themeData(
-            themeProvider.getDarkTheme,
-            context,
-          ),
-          home: const BottomBarScreen(),
-        );
-      }),
+      child: Consumer<DarkThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: Styles.themeData(
+              themeProvider.getDarkTheme,
+              context,
+            ),
+            home: const BottomBarScreen(),
+            routes: {
+              OnSaleScreen.routeName: (context) => const OnSaleScreen(),
+            },
+          );
+        },
+      ),
     );
   }
 }

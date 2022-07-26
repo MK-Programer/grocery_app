@@ -57,7 +57,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size(
+          preferredSize: const Size(
             double.infinity,
             56,
           ),
