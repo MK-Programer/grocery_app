@@ -73,9 +73,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                       child: PriceWidget(
                         salePrice: 2.99,
                         price: 5.9,
-                        textPrice: _quantityTextController.text.isEmpty
-                            ? "1"
-                            : _quantityTextController.text,
+                        textPrice: _quantityTextController.text,
                         isOnSale: true,
                       ),
                     ),
@@ -112,7 +110,15 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                               maxLines: 1,
                               enabled: true,
                               onChanged: (value) {
-                                setState(() {});
+                                setState(
+                                  () {
+                                    if (value.isEmpty) {
+                                      _quantityTextController.text = "1";
+                                    } else {
+                                      return;
+                                    }
+                                  },
+                                );
                               },
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(

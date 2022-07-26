@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
-import 'package:grocery_app/screens/cart.dart';
+import 'package:grocery_app/screens/cart/cart_screen.dart';
 import 'package:grocery_app/screens/categories.dart';
 import 'package:grocery_app/screens/home_screen.dart';
 import 'package:grocery_app/screens/user.dart';
@@ -31,7 +31,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     {
       "page": const CartScreen(),
       "title": "Cart Screen",
-      "visibility": true,
+      "visibility": false,
     },
     {
       "page": const UserScreen(),
@@ -40,7 +40,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     },
   ];
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void _selectedPage(int index) {
     setState(
