@@ -10,6 +10,7 @@ class OnSaleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isEmpty = true;
     final Utils utils = Utils(context);
     Size size = utils.getScreenSize;
     final color = utils.color;
@@ -28,25 +29,48 @@ class OnSaleScreen extends StatelessWidget {
           ),
         ),
         title: TextWidget(
-          text: "Products on Sale",
+          text: "Products on sale",
           color: color,
           textSize: 24.0,
           isTitle: true,
         ),
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        childAspectRatio: size.width / (size.height * 0.45),
-        // padding: EdgeInsets.zero,
-        // mainAxisSpacing: 10.0,
-        // crossAxisSpacing: 10.0,
-        children: List.generate(
-          16,
-          (index) {
-            return const OnSaleWidget();
-          },
-        ),
-      ),
+      body: isEmpty
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Image.asset('assets/images/box.png'),
+                    ),
+                    Text(
+                      "No available products, \nstay tuned",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: size.width / (size.height * 0.45),
+              // padding: EdgeInsets.zero,
+              // mainAxisSpacing: 10.0,
+              // crossAxisSpacing: 10.0,
+              children: List.generate(
+                16,
+                (index) {
+                  return const OnSaleWidget();
+                },
+              ),
+            ),
     );
   }
 }
