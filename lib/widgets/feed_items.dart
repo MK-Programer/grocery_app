@@ -102,6 +102,9 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                           Flexible(
                             flex: 2,
                             child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: "1",
+                              ),
                               controller: _quantityTextController,
                               key: const ValueKey('10'),
                               style: TextStyle(color: color, fontSize: 18),

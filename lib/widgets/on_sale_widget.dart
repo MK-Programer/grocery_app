@@ -35,6 +35,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FancyShimmerImage(
@@ -44,6 +45,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                       boxFit: BoxFit.fill,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         TextWidget(
                           text: "1KG",
