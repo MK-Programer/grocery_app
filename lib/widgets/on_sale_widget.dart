@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
-import 'package:grocery_app/widgets/price_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+
+import 'price_widget.dart';
 
 class OnSaleWidget extends StatefulWidget {
   const OnSaleWidget({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _OnSaleWidgetState createState() => _OnSaleWidgetState();
+  State<OnSaleWidget> createState() => _OnSaleWidgetState();
 }
 
 class _OnSaleWidgetState extends State<OnSaleWidget> {
   @override
   Widget build(BuildContext context) {
-    final Utils utils = Utils(context);
-    Size size = utils.getScreenSize;
-    final color = utils.color;
+    final Color color = Utils(context).color;
+    final theme = Utils(context).getTheme;
+    Size size = Utils(context).getScreenSize;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -68,7 +68,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                 color: color,
                               ),
                             ),
-                            const HeartButton(),
+                            const HeartBTN(),
                           ],
                         ),
                       ],

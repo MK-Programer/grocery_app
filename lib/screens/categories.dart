@@ -1,65 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/categories_widget.dart';
+import 'package:grocery_app/widgets/text_widget.dart';
 
-class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class CategoriesScreen extends StatelessWidget {
+  CategoriesScreen({Key? key}) : super(key: key);
 
-  @override
-  State<CategoriesScreen> createState() => _CategoriesScreenState();
-}
-
-class _CategoriesScreenState extends State<CategoriesScreen> {
-  final List<Map<String, dynamic>> _catItems = [
-    {
-      "imgName": "fruits",
-      "catText": "Fruites",
-      "color": const Color(0xFF538175),
-    },
-    {
-      "imgName": "veg",
-      "catText": "Vegetables",
-      "color": const Color(0xFFF8A44C),
-    },
-    {
-      "imgName": "spinach",
-      "catText": "Herbs",
-      "color": const Color(0xFFF7A593),
-    },
-    {
-      "imgName": "nuts",
-      "catText": "Nuts",
-      "color": const Color(0xFFD3B0E0),
-    },
-    {
-      "imgName": "spices",
-      "catText": "Spices",
-      "color": const Color(0xFFFDE598),
-    },
-    {
-      "imgName": "grains",
-      "catText": "Grains",
-      "color": const Color(0xFFB7DFF5),
-    },
+  List<Color> gridColors = [
+    const Color(0xff53B175),
+    const Color(0xffF8A44C),
+    const Color(0xffF7A593),
+    const Color(0xffD3B0E0),
+    const Color(0xffFDE598),
+    const Color(0xffB7DFF5),
   ];
 
+  List<Map<String, dynamic>> catInfo = [
+    {
+      'imgName': 'fruits',
+      'catText': 'Fruits',
+    },
+    {
+      'imgName': 'veg',
+      'catText': 'Vegetables',
+    },
+    {
+      'imgName': 'spinach',
+      'catText': 'Herbs',
+    },
+    {
+      'imgName': 'nuts',
+      'catText': 'Nuts',
+    },
+    {
+      'imgName': 'spices',
+      'catText': 'Spices',
+    },
+    {
+      'imgName': 'grains',
+      'catText': 'Grains',
+    },
+  ];
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.count(
-        crossAxisCount: 2,
-        childAspectRatio: 240.0 / 250.0,
-        crossAxisSpacing: 10.0,
-        mainAxisSpacing: 10.0,
-        children: List.generate(
-          _catItems.length,
-          (index) {
-            return CategoriesWidget(
-              imgName: _catItems[index]["imgName"],
-              catText: _catItems[index]["catText"],
-              passedColor: _catItems[index]["color"],
-            );
-          },
+    final utils = Utils(context);
+    Color color = utils.color;
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: TextWidget(
+          text: 'Categories',
+          color: color,
+          textSize: 24,
+          isTitle: true,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 240 / 250,
+          crossAxisSpacing: 10, // Vertical spacing
+          mainAxisSpacing: 10, // Horizontal spacing
+          children: List.generate(
+            6,
+            (index) {
+              return CategoriesWidget(
+                catText: catInfo[index]['catText'],
+                imgPath: "assets/images/cat/${catInfo[index]['imgName']}.png",
+                passedColor: gridColors[index],
+              );
+            },
+          ),
         ),
       ),
     );

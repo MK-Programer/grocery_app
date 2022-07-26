@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class TextWidget extends StatelessWidget {
-  final String text;
-  final Color color;
-  final double textSize;
-  bool isTitle;
-  int maxLines;
   TextWidget({
     Key? key,
     required this.text,
@@ -15,6 +9,11 @@ class TextWidget extends StatelessWidget {
     this.isTitle = false,
     this.maxLines = 10,
   }) : super(key: key);
+  final String text;
+  final Color color;
+  final double textSize;
+  bool isTitle;
+  int maxLines = 10;
   @override
   Widget build(BuildContext context) {
     return Text(

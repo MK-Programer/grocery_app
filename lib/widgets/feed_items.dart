@@ -1,11 +1,11 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/price_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
 import '../services/utils.dart';
+import 'heart_btn.dart';
 
 class FeedsWidget extends StatefulWidget {
   const FeedsWidget({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class FeedsWidget extends StatefulWidget {
 }
 
 class _FeedsWidgetState extends State<FeedsWidget> {
-  final _quantityTextController = TextEditingController(text: "1");
+  final _quantityTextController = TextEditingController();
   @override
   void initState() {
     _quantityTextController.text = '1';
@@ -59,7 +59,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                       textSize: 20,
                       isTitle: true,
                     ),
-                    const HeartButton(),
+                    const HeartBTN(),
                   ],
                 ),
               ),

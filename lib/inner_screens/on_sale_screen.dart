@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/on_sale_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+
+import '../services/utils.dart';
 
 class OnSaleScreen extends StatelessWidget {
   static const routeName = "/OnSaleScreen";
   const OnSaleScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    bool isEmpty = false;
-    final Utils utils = Utils(context);
-    Size size = utils.getScreenSize;
-    final color = utils.color;
+    bool _isEmpty = false;
+    final Color color = Utils(context).color;
+    Size size = Utils(context).getScreenSize;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: InkWell(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(12),
           onTap: () {
             Navigator.pop(context);
           },
@@ -28,14 +25,16 @@ class OnSaleScreen extends StatelessWidget {
             color: color,
           ),
         ),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(
-          text: "Products on sale",
+          text: 'Products on sale',
           color: color,
           textSize: 24.0,
           isTitle: true,
         ),
       ),
-      body: isEmpty
+      body: _isEmpty
           ? Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -43,14 +42,16 @@ class OnSaleScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(18.0),
-                      child: Image.asset('assets/images/box.png'),
+                      child: Image.asset(
+                        'assets/images/box.png',
+                      ),
                     ),
                     Text(
-                      "No available products, \nstay tuned",
+                      'No products on sale yet!,\nStay tuned',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: color,
-                        fontSize: 40,
+                        fontSize: 30,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -60,10 +61,9 @@ class OnSaleScreen extends StatelessWidget {
             )
           : GridView.count(
               crossAxisCount: 2,
+              padding: EdgeInsets.zero,
+              // crossAxisSpacing: 10,
               childAspectRatio: size.width / (size.height * 0.45),
-              // padding: EdgeInsets.zero,
-              // mainAxisSpacing: 10.0,
-              // crossAxisSpacing: 10.0,
               children: List.generate(
                 16,
                 (index) {

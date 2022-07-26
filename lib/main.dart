@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grocery_app/consts/theme_data.dart';
-import 'package:grocery_app/inner_screens/feed_screen.dart';
 import 'package:grocery_app/inner_screens/on_sale_screen.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
-import 'package:grocery_app/screens/btm_bar.dart';
+
 import 'package:provider/provider.dart';
+
+import 'consts/theme_data.dart';
+import 'inner_screens/feeds_screen.dart';
+import 'screens/btm_bar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,11 +26,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final DarkThemeProvider _themeChangeProvider = DarkThemeProvider();
+  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   void getCurrentAppTheme() async {
-    _themeChangeProvider.setDarkTheme =
-        await _themeChangeProvider.darkThemePrefs.getTheme();
+    themeChangeProvider.setDarkTheme =
+        await themeChangeProvider.darkThemePrefs.getTheme();
   }
 
   @override
@@ -37,29 +39,24 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) {
-            return _themeChangeProvider;
-          },
-        ),
+        ChangeNotifierProvider(create: (_) {
+          return themeChangeProvider;
+        })
       ],
       child: Consumer<DarkThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: Styles.themeData(
-              themeProvider.getDarkTheme,
-              context,
-            ),
+            // title: 'Flutter Demo',
+            theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const BottomBarScreen(),
             routes: {
-              OnSaleScreen.routeName: (context) => const OnSaleScreen(),
-              FeedScreen.routeName: (context) => const FeedScreen(),
+              OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
+              FeedsScreen.routeName: (ctx) => const FeedsScreen(),
             },
           );
         },
