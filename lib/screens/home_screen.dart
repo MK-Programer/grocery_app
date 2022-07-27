@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final Utils utils = Utils(context);
-    final themeState = utils.getTheme;
     final Color color = Utils(context).color;
     Size size = utils.getScreenSize;
 
@@ -60,7 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
             TextButton(
               onPressed: () {
                 GlobalMethods.navigateTo(
-                    ctx: context, routeName: OnSaleScreen.routeName);
+                  ctx: context,
+                  routeName: OnSaleScreen.routeName,
+                );
               },
               child: TextWidget(
                 text: 'View all',

@@ -81,6 +81,7 @@ class _CartWidgetState extends State<CartWidget> {
                               Flexible(
                                 flex: 1,
                                 child: TextField(
+                                  textAlign: TextAlign.center,
                                   controller: _quantityTextController,
                                   keyboardType: TextInputType.number,
                                   maxLines: 1,

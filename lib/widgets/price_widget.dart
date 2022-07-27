@@ -26,6 +26,11 @@ class PriceWidget extends StatelessWidget {
             color: Colors.green,
             textSize: 18,
           ),
+          TextWidget(
+            text: "/Kg",
+            color: color,
+            textSize: 12,
+          ),
           const SizedBox(
             width: 5,
           ),
