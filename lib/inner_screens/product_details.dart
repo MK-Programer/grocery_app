@@ -95,15 +95,34 @@ class _ProductDetailsState extends State<ProductDetails> {
                       right: 30.0,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        PriceWidget(
-                          salePrice: 2.59,
-                          price: 3.9,
-                          textPrice: _quantityTextController.text,
-                          isOnSale: true,
+                        TextWidget(
+                          text: '\$2.59',
+                          color: Colors.green,
+                          textSize: 22,
+                          isTitle: true,
                         ),
-                        // const Spacer(),
+                        TextWidget(
+                          text: "/Kg",
+                          color: color,
+                          textSize: 12,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Visibility(
+                          visible: true,
+                          child: Text(
+                            '\$3.9',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: color,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
                         Container(
                           padding: const EdgeInsets.symmetric(
                             vertical: 4.0,
@@ -130,7 +149,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _quantityController(
-                        fct: () {},
+                        fct: () {
+                          setState(
+                            () {
+                              if (_quantityTextController.text == "1") {
+                                return;
+                              } else {
+                                _quantityTextController.text =
+                                    (int.parse(_quantityTextController.text) -
+                                            1)
+                                        .toString();
+                              }
+                            },
+                          );
+                        },
                         color: Colors.red,
                         icon: CupertinoIcons.minus,
                       ),
@@ -172,7 +204,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                         width: 5.0,
                       ),
                       _quantityController(
-                        fct: () {},
+                        fct: () {
+                          setState(
+                            () {
+                              _quantityTextController.text =
+                                  (int.parse(_quantityTextController.text) + 1)
+                                      .toString();
+                            },
+                          );
+                        },
                         color: Colors.green,
                         icon: CupertinoIcons.plus,
                       ),
@@ -217,7 +257,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     isTitle: true,
                                   ),
                                   TextWidget(
-                                    text: "1Kg",
+                                    text: "${_quantityTextController.text}/Kg",
                                     color: color,
                                     textSize: 16.0,
                                     isTitle: true,
