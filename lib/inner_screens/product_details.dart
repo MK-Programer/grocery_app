@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/services/utils.dart';
+import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
-import 'package:grocery_app/widgets/price_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -32,17 +32,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final Color color = Utils(context).color;
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          onTap: () {
-            Navigator.canPop(context) ? Navigator.pop(context) : null;
-          },
-          borderRadius: BorderRadius.circular(12.0),
-          child: Icon(
-            IconlyLight.arrowLeft2,
-            color: color,
-            size: 24.0,
-          ),
-        ),
+        leading: const BackWidget(),
         elevation: 0.0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),

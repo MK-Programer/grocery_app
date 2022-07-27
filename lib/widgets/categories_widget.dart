@@ -21,7 +21,7 @@ class CategoriesWidget extends StatelessWidget {
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     return InkWell(
       onTap: () {
-        print("${this.catText} is pressed");
+        print("$catText is pressed");
       },
       child: Container(
         // height: screenWidth * 0.6,
