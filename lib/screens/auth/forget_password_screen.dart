@@ -1,13 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery_app/screens/auth/register_screen.dart';
-import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
 import '../../widgets/auth_button.dart';
-import '../../widgets/google_button.dart';
 import 'auth_helper.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
