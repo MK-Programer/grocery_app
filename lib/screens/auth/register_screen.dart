@@ -1,47 +1,58 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery_app/screens/auth/register_screen.dart';
-import 'package:grocery_app/services/global_methods.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
 import '../../consts/consts.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/google_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  static const routeName = "/RegisterScreen";
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  final _fullNameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+  final _addressTextController = TextEditingController();
   final _passFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _addressFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   bool _obsecureText = true;
 
   @override
   void dispose() {
+    _fullNameTextController.dispose();
     _emailTextController.dispose();
     _passwordTextController.dispose();
+    _addressTextController.dispose();
     _passFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _addressFocusNode.dispose();
     super.dispose();
   }
 
-  void _submitFormOnLogin() {
+  void _submitFormOnRegister() {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
+      _formKey.currentState!.save();
       print("the form is valid");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Utils(context).getTheme;
     return Scaffold(
       body: Stack(
         children: [
@@ -69,10 +80,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(
-                    height: 120.0,
+                    height: 60.0,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.canPop(context) ? Navigator.pop(context) : null;
+                    },
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Icon(
+                      IconlyLight.arrowLeft2,
+                      color: theme == true ? Colors.white : Colors.black,
+                      size: 24.0,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 40.0,
                   ),
                   TextWidget(
-                    text: "Welcome Back",
+                    text: "Welcome",
                     color: Colors.white,
                     textSize: 30.0,
                     isTitle: true,
@@ -81,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 8.0,
                   ),
                   TextWidget(
-                    text: "Sign in to continue",
+                    text: "Sign up to continue",
                     color: Colors.white,
                     textSize: 18.0,
                   ),
@@ -93,6 +118,43 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         TextFormField(
+                          textInputAction: TextInputAction.next,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(_emailFocusNode),
+                          controller: _fullNameTextController,
+                          keyboardType: TextInputType.name,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "This field is missing";
+                            } else {
+                              return null;
+                            }
+                          },
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                          decoration: const InputDecoration(
+                            hintText: "Full name",
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12.0,
+                        ),
+                        TextFormField(
+                          focusNode: _emailFocusNode,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () => FocusScope.of(context)
                               .requestFocus(_passFocusNode),
@@ -129,10 +191,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 12.0,
                         ),
                         TextFormField(
-                          textInputAction: TextInputAction.done,
-                          onEditingComplete: () {
-                            _submitFormOnLogin();
-                          },
+                          textInputAction: TextInputAction.next,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(_addressFocusNode),
                           controller: _passwordTextController,
                           focusNode: _passFocusNode,
                           obscureText: _obsecureText,
@@ -180,6 +241,45 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 12.0,
+                        ),
+                        TextFormField(
+                          focusNode: _addressFocusNode,
+                          textInputAction: TextInputAction.done,
+                          onEditingComplete: () {
+                            _submitFormOnRegister();
+                          },
+                          controller: _addressTextController,
+                          validator: (value) {
+                            if (value!.isEmpty || value.length < 10) {
+                              return "Please, enter a valid address";
+                            } else {
+                              return null;
+                            }
+                          },
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                          maxLines: 2,
+                          textAlign: TextAlign.start,
+                          decoration: const InputDecoration(
+                            hintText: "Shipping address",
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -207,67 +307,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   AuthButton(
                     fct: () {
-                      // _submitFormOnLogin();
+                      _submitFormOnRegister();
                     },
-                    buttonText: "Sign in",
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  const GoogleButton(),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
-                    children: [
-                      const Expanded(
-                        child: Divider(
-                          color: Colors.white,
-                          thickness: 2.0,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                      TextWidget(
-                        text: "OR",
-                        color: Colors.white,
-                        textSize: 18.0,
-                      ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                      const Expanded(
-                        child: Divider(
-                          color: Colors.white,
-                          thickness: 2.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  AuthButton(
-                    fct: () {
-                      // _submitFormOnLogin();
-                    },
-                    buttonText: "Continue as a guest",
-                    primary: Colors.black,
+                    buttonText: "Sign up",
                   ),
                   const SizedBox(
                     height: 10.0,
                   ),
                   RichText(
                     text: TextSpan(
-                      text: "Don't have an account?",
+                      text: "Already have an account?",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
                       ),
                       children: [
                         TextSpan(
-                          text: "  Sign up",
+                          text: "  Sign in",
                           style: const TextStyle(
                             color: Colors.lightBlue,
                             fontSize: 18.0,
@@ -275,10 +331,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              GlobalMethods.navigateTo(
-                                ctx: context,
-                                routeName: RegisterScreen.routeName,
-                              );
+                              Navigator.canPop(context)
+                                  ? Navigator.of(context).pop()
+                                  : null;
                             },
                         )
                       ],

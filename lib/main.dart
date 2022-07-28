@@ -4,6 +4,7 @@ import 'package:grocery_app/inner_screens/on_sale_screen.dart';
 import 'package:grocery_app/inner_screens/product_details.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
 import 'package:grocery_app/screens/auth/login_screen.dart';
+import 'package:grocery_app/screens/auth/register_screen.dart';
 import 'package:grocery_app/screens/orders/orders_screen.dart';
 import 'package:grocery_app/screens/viewed_recently/viewed_recently_screen.dart';
 import 'package:grocery_app/screens/wishlist/wishlist_screen.dart';
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, themeProvider, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            // title: 'Flutter Demo',
+            title: 'Grocery App',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const LoginScreen(),
             routes: {
@@ -68,6 +69,7 @@ class _MyAppState extends State<MyApp> {
               OrdersScreen.routeName: (ctx) => const OrdersScreen(),
               ViewedRecentlyScreen.routeName: (ctx) =>
                   const ViewedRecentlyScreen(),
+              RegisterScreen.routeName: (ctx) => const RegisterScreen(),
             },
           );
         },
