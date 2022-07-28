@@ -1,8 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
 import '../../consts/consts.dart';
@@ -56,14 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
             duration: 800,
             autoplayDelay: 8000,
             itemCount: Consts.landingImages.length,
-            // pagination: const SwiperPagination(
-            //   alignment: Alignment.bottomCenter,
-            //   // builder: DotSwiperPaginationBuilder(
-            //   //   color: Colors.white,
-            //   //   activeColor: Colors.red,
-            //   // ),
-            // ),
-            // control: const SwiperControl(color: Colors.black),
           ),
           Container(
             color: Colors.black.withOpacity(0.7),

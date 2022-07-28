@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
 import 'inner_screens/feeds_screen.dart';
-import 'screens/btm_bar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
