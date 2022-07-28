@@ -3,11 +3,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/services/utils.dart';
+import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
 import '../../consts/consts.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/google_button.dart';
+import 'auth_helper.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const routeName = "/RegisterScreen";
@@ -52,22 +54,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Utils(context).getTheme;
     return Scaffold(
       body: Stack(
         children: [
-          Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return Image.asset(
-                "assets/images/landing/${Consts.landingImages[index]}.jpg",
-                fit: BoxFit.cover,
-              );
-            },
-            autoplay: true,
-            duration: 800,
-            autoplayDelay: 8000,
-            itemCount: Consts.landingImages.length,
-          ),
+          const AuthCarousel(),
           Container(
             color: Colors.black.withOpacity(0.7),
           ),
@@ -82,16 +72,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 60.0,
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.canPop(context) ? Navigator.pop(context) : null;
-                    },
-                    borderRadius: BorderRadius.circular(12.0),
-                    child: Icon(
-                      IconlyLight.arrowLeft2,
-                      color: theme == true ? Colors.white : Colors.black,
-                      size: 24.0,
-                    ),
+                  const BackWidget(
+                    colorPassed: Colors.white,
                   ),
                   const SizedBox(
                     height: 40.0,
@@ -133,22 +115,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: const TextStyle(
                             color: Colors.white,
                           ),
-                          decoration: const InputDecoration(
-                            hintText: "Full name",
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                          decoration: AuthInputStyle.authInputDecoration
+                              .copyWith(hintText: "Full name"),
                         ),
                         const SizedBox(
                           height: 12.0,
@@ -170,22 +138,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: const TextStyle(
                             color: Colors.white,
                           ),
-                          decoration: const InputDecoration(
-                            hintText: "Email",
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                          decoration: AuthInputStyle.authInputDecoration
+                              .copyWith(hintText: "Email"),
                         ),
                         const SizedBox(
                           height: 12.0,
@@ -208,7 +162,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: const TextStyle(
                             color: Colors.white,
                           ),
-                          decoration: InputDecoration(
+                          decoration:
+                              AuthInputStyle.authInputDecoration.copyWith(
+                            hintText: "Password",
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(
@@ -222,20 +178,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 _obsecureText
                                     ? Icons.visibility
                                     : Icons.visibility_off,
-                                color: Colors.white,
-                              ),
-                            ),
-                            hintText: "Password",
-                            hintStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
                                 color: Colors.white,
                               ),
                             ),
@@ -263,22 +205,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           maxLines: 2,
                           textAlign: TextAlign.start,
-                          decoration: const InputDecoration(
-                            hintText: "Shipping address",
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                          decoration: AuthInputStyle.authInputDecoration
+                              .copyWith(hintText: "Shipping address"),
                         ),
                       ],
                     ),
@@ -286,22 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Forget password?",
-                        maxLines: 1,
-                        style: TextStyle(
-                          color: Colors.lightBlue,
-                          fontSize: 18.0,
-                          decoration: TextDecoration.underline,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const ForgetPasswordButton(),
                   const SizedBox(
                     height: 10.0,
                   ),

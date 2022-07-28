@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:grocery_app/inner_screens/on_sale_screen.dart';
 import 'package:grocery_app/inner_screens/product_details.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
+import 'package:grocery_app/screens/auth/forget_password_screen.dart';
 import 'package:grocery_app/screens/auth/login_screen.dart';
 import 'package:grocery_app/screens/auth/register_screen.dart';
 import 'package:grocery_app/screens/orders/orders_screen.dart';
@@ -70,6 +71,8 @@ class _MyAppState extends State<MyApp> {
               ViewedRecentlyScreen.routeName: (ctx) =>
                   const ViewedRecentlyScreen(),
               RegisterScreen.routeName: (ctx) => const RegisterScreen(),
+              ForgetPasswordScreen.routeName: (ctx) =>
+                  const ForgetPasswordScreen(),
             },
           );
         },

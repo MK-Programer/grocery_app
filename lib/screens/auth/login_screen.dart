@@ -8,6 +8,7 @@ import 'package:grocery_app/widgets/text_widget.dart';
 import '../../consts/consts.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/google_button.dart';
+import 'auth_helper.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -45,18 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return Image.asset(
-                "assets/images/landing/${Consts.landingImages[index]}.jpg",
-                fit: BoxFit.cover,
-              );
-            },
-            autoplay: true,
-            duration: 800,
-            autoplayDelay: 8000,
-            itemCount: Consts.landingImages.length,
-          ),
+          const AuthCarousel(),
           Container(
             color: Colors.black.withOpacity(0.7),
           ),
@@ -108,22 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: const TextStyle(
                             color: Colors.white,
                           ),
-                          decoration: const InputDecoration(
-                            hintText: "Email",
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                          decoration: AuthInputStyle.authInputDecoration
+                              .copyWith(hintText: "Email"),
                         ),
                         const SizedBox(
                           height: 12.0,
@@ -147,7 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: const TextStyle(
                             color: Colors.white,
                           ),
-                          decoration: InputDecoration(
+                          decoration:
+                              AuthInputStyle.authInputDecoration.copyWith(
+                            hintText: "Password",
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(
@@ -164,20 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Colors.white,
                               ),
                             ),
-                            hintText: "Password",
-                            hintStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
                           ),
                         ),
                       ],
@@ -186,22 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Forget password?",
-                        maxLines: 1,
-                        style: TextStyle(
-                          color: Colors.lightBlue,
-                          fontSize: 18.0,
-                          decoration: TextDecoration.underline,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const ForgetPasswordButton(),
                   const SizedBox(
                     height: 10.0,
                   ),

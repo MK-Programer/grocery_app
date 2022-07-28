@@ -3,7 +3,11 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/services/utils.dart';
 
 class BackWidget extends StatelessWidget {
-  const BackWidget({Key? key}) : super(key: key);
+  final Color? colorPassed;
+  const BackWidget({
+    Key? key,
+    this.colorPassed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class BackWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(12.0),
       child: Icon(
         IconlyLight.arrowLeft2,
-        color: color,
+        color: colorPassed ?? color,
         size: 24.0,
       ),
     );
