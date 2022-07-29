@@ -137,9 +137,12 @@ class _HomeScreenState extends State<HomeScreen> {
               // crossAxisSpacing: 10,
               childAspectRatio: size.width / (size.height * 0.6),
               children: List.generate(
-                4,
+                Consts.productsList.length < 4 ? Consts.productsList.length : 4,
                 (index) {
-                  return const FeedsWidget();
+                  return FeedsWidget(
+                    imageUrl: Consts.productsList[index].imageUrl,
+                    title: Consts.productsList[index].title,
+                  );
                 },
               ),
             )
