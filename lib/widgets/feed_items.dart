@@ -88,27 +88,24 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                      flex: 4,
+                      flex: 3,
                       child: PriceWidget(
-                        salePrice: 2.99,
-                        price: 5.9,
+                        salePrice: productModel.salePrice,
+                        price: productModel.price,
                         textPrice: _quantityTextController.text,
-                        isOnSale: true,
+                        isOnSale: productModel.isOnSale,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 8,
                     ),
                     Flexible(
                       child: Row(
                         children: [
                           Flexible(
-                            flex: 4,
+                            flex: 6,
                             child: FittedBox(
                               child: TextWidget(
-                                text: 'KG',
+                                text: productModel.isPiece ? 'Piece' : 'kg',
                                 color: color,
-                                textSize: 18,
+                                textSize: 20,
                                 isTitle: true,
                               ),
                             ),

@@ -4,7 +4,6 @@ import 'package:grocery_app/models/products_model.dart';
 import 'package:grocery_app/provider/products_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../consts/consts.dart';
 import '../services/utils.dart';
 import '../widgets/feed_items.dart';
 import '../widgets/text_widget.dart';
