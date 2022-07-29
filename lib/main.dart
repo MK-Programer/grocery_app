@@ -6,6 +6,7 @@ import 'package:grocery_app/provider/dark_theme_provider.dart';
 import 'package:grocery_app/screens/auth/forget_password_screen.dart';
 import 'package:grocery_app/screens/auth/login_screen.dart';
 import 'package:grocery_app/screens/auth/register_screen.dart';
+import 'package:grocery_app/screens/btm_bar.dart';
 import 'package:grocery_app/screens/orders/orders_screen.dart';
 import 'package:grocery_app/screens/viewed_recently/viewed_recently_screen.dart';
 import 'package:grocery_app/screens/wishlist/wishlist_screen.dart';
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Grocery App',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
-            home: const LoginScreen(),
+            home: const BottomBarScreen(),
             routes: {
               OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
               FeedsScreen.routeName: (ctx) => const FeedsScreen(),
