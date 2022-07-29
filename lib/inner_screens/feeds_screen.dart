@@ -116,9 +116,9 @@ class _FeedsScreenState extends State<FeedsScreen> {
               children: List.generate(
                 allProducts.length,
                 (index) {
-                  return FeedsWidget(
-                    imageUrl: allProducts[index].imageUrl,
-                    title: allProducts[index].title,
+                  return ChangeNotifierProvider.value(
+                    value: allProducts[index],
+                    child: const FeedsWidget(),
                   );
                 },
               ),

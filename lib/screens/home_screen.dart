@@ -143,9 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
               children: List.generate(
                 allProducts.length < 4 ? allProducts.length : 4,
                 (index) {
-                  return FeedsWidget(
-                    imageUrl: allProducts[index].imageUrl,
-                    title: allProducts[index].title,
+                  return ChangeNotifierProvider.value(
+                    value: allProducts[index],
+                    child: const FeedsWidget(),
                   );
                 },
               ),
