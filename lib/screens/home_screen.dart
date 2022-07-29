@@ -5,8 +5,11 @@ import 'package:grocery_app/inner_screens/feeds_screen.dart';
 import 'package:grocery_app/inner_screens/on_sale_screen.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../consts/consts.dart';
+import '../models/products_model.dart';
+import '../provider/products_provider.dart';
 import '../services/global_methods.dart';
 import '../widgets/feed_items.dart';
 import '../widgets/on_sale_widget.dart';
@@ -24,7 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final Utils utils = Utils(context);
     final Color color = Utils(context).color;
     Size size = utils.getScreenSize;
-
+    final productProvider = Provider.of<ProductsProvider>(context);
+    List<ProductModel> allProducts = productProvider.getProducts;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -137,11 +141,11 @@ class _HomeScreenState extends State<HomeScreen> {
               // crossAxisSpacing: 10,
               childAspectRatio: size.width / (size.height * 0.6),
               children: List.generate(
-                Consts.productsList.length < 4 ? Consts.productsList.length : 4,
+                allProducts.length < 4 ? allProducts.length : 4,
                 (index) {
                   return FeedsWidget(
-                    imageUrl: Consts.productsList[index].imageUrl,
-                    title: Consts.productsList[index].title,
+                    imageUrl: allProducts[index].imageUrl,
+                    title: allProducts[index].title,
                   );
                 },
               ),

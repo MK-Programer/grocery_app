@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery_app/models/products_model.dart';
+import 'package:grocery_app/provider/products_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../consts/consts.dart';
 import '../services/utils.dart';
@@ -28,6 +31,8 @@ class _FeedsScreenState extends State<FeedsScreen> {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
+    final productProvider = Provider.of<ProductsProvider>(context);
+    List<ProductModel> allProducts = productProvider.getProducts;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -109,11 +114,11 @@ class _FeedsScreenState extends State<FeedsScreen> {
               // crossAxisSpacing: 10,
               childAspectRatio: size.width / (size.height * 0.6),
               children: List.generate(
-                Consts.productsList.length,
+                allProducts.length,
                 (index) {
                   return FeedsWidget(
-                    imageUrl: Consts.productsList[index].imageUrl,
-                    title: Consts.productsList[index].title,
+                    imageUrl: allProducts[index].imageUrl,
+                    title: allProducts[index].title,
                   );
                 },
               ),
