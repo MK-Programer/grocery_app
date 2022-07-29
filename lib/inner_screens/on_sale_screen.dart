@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/on_sale_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../models/products_model.dart';
+import '../provider/products_provider.dart';
 import '../services/utils.dart';
 
 class OnSaleScreen extends StatelessWidget {
@@ -10,9 +13,10 @@ class OnSaleScreen extends StatelessWidget {
   const OnSaleScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    bool isEmpty = false;
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
+    final productProvider = Provider.of<ProductsProvider>(context);
+    List<ProductModel> onSaleProducts = productProvider.getOnSaleProducts;
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -25,7 +29,7 @@ class OnSaleScreen extends StatelessWidget {
           isTitle: true,
         ),
       ),
-      body: isEmpty
+      body: onSaleProducts.isEmpty
           ? Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -56,9 +60,12 @@ class OnSaleScreen extends StatelessWidget {
               // crossAxisSpacing: 10,
               childAspectRatio: size.width / (size.height * 0.45),
               children: List.generate(
-                16,
+                onSaleProducts.length,
                 (index) {
-                  return const OnSaleWidget();
+                  return ChangeNotifierProvider.value(
+                    value: onSaleProducts[index],
+                    child: const OnSaleWidget(),
+                  );
                 },
               ),
             ),

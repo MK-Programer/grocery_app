@@ -6,7 +6,9 @@ import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../models/products_model.dart';
 import 'price_widget.dart';
 
 class OnSaleWidget extends StatefulWidget {
@@ -21,6 +23,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
+    final productModel = Provider.of<ProductModel>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -45,7 +48,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FancyShimmerImage(
-                      imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+                      imageUrl: productModel.imageUrl,
                       height: size.width * 0.22,
                       width: size.width * 0.22,
                       boxFit: BoxFit.fill,
@@ -54,7 +57,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         TextWidget(
-                          text: "1KG",
+                          text: productModel.isPiece ? "1Piece" : "1KG",
                           color: color,
                           textSize: 22,
                           isTitle: true,
@@ -81,17 +84,17 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     ),
                   ],
                 ),
-                const PriceWidget(
-                  isOnSale: true,
-                  price: 5.9,
-                  salePrice: 2.99,
+                PriceWidget(
+                  isOnSale: productModel.isOnSale,
+                  price: productModel.price,
+                  salePrice: productModel.salePrice,
                   textPrice: "1",
                 ),
                 const SizedBox(
                   height: 5.0,
                 ),
                 TextWidget(
-                  text: "Product title",
+                  text: productModel.title,
                   color: color,
                   textSize: 16.0,
                   isTitle: true,
