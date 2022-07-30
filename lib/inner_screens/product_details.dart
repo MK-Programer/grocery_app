@@ -9,6 +9,8 @@ import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/cart_provider.dart';
+
 class ProductDetails extends StatefulWidget {
   static const String routeName = "/ProductDetails";
   const ProductDetails({Key? key}) : super(key: key);
@@ -38,6 +40,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         ? getCurrentProduct.salePrice
         : getCurrentProduct.price;
     double totalPrice = usedPrice * int.parse(_quantityTextController.text);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -275,7 +278,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(10.0),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                cartProvider.addProductsToCart(
+                                  productId: getCurrentProduct.id,
+                                  quantity: int.parse(
+                                    _quantityTextController.text,
+                                  ),
+                                );
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: TextWidget(
