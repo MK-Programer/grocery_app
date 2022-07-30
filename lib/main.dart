@@ -7,7 +7,6 @@ import 'package:grocery_app/provider/products_provider.dart';
 import 'package:grocery_app/screens/auth/forget_password_screen.dart';
 import 'package:grocery_app/screens/auth/register_screen.dart';
 import 'package:grocery_app/screens/btm_bar.dart';
-import 'package:grocery_app/screens/categories.dart';
 import 'package:grocery_app/screens/orders/orders_screen.dart';
 import 'package:grocery_app/screens/viewed_recently/viewed_recently_screen.dart';
 import 'package:grocery_app/screens/wishlist/wishlist_screen.dart';
