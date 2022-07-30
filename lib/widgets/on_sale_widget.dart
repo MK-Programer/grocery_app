@@ -8,6 +8,7 @@ import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../models/products_model.dart';
+import '../provider/cart_provider.dart';
 import 'price_widget.dart';
 
 class OnSaleWidget extends StatefulWidget {
@@ -23,6 +24,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -73,7 +75,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                print("bag");
+                                cartProvider.addProductsToCart(
+                                  productId: productModel.id,
+                                  quantity: 1,
+                                );
                               },
                               child: Icon(
                                 IconlyLight.bag2,
