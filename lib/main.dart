@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery_app/inner_screens/on_sale_screen.dart';
 import 'package:grocery_app/inner_screens/product_details.dart';
+import 'package:grocery_app/provider/cart_provider.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
 import 'package:grocery_app/provider/products_provider.dart';
 import 'package:grocery_app/screens/auth/forget_password_screen.dart';
@@ -59,6 +60,11 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (_) {
             return ProductsProvider();
+          },
+        ),
+        ChangeNotifierProvider(
+          create: (_) {
+            return CartProvider();
           },
         ),
       ],
