@@ -16,6 +16,14 @@ class ProductsProvider with ChangeNotifier {
     return _productsList.firstWhere((element) => element.id == productId);
   }
 
+  List<ProductModel> findByCategory(String categoryName) {
+    return _productsList
+        .where((element) => element.productCategoryName
+            .toLowerCase()
+            .contains(categoryName.toLowerCase()))
+        .toList();
+  }
+
   static final List<ProductModel> _productsList = [
     ProductModel(
       id: "2424",
