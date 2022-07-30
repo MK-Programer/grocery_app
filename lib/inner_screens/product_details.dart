@@ -2,13 +2,15 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grocery_app/provider/products_provider.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
-  static const String routeName = "ProductDetails";
+  static const String routeName = "/ProductDetails";
   const ProductDetails({Key? key}) : super(key: key);
 
   @override
@@ -29,6 +31,13 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     final Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
+    final productId = ModalRoute.of(context)!.settings.arguments as String;
+    final productprovider = Provider.of<ProductsProvider>(context);
+    final getCurrentProduct = productprovider.findProdById(productId);
+    double usedPrice = getCurrentProduct.isOnSale
+        ? getCurrentProduct.salePrice
+        : getCurrentProduct.price;
+    double totalPrice = usedPrice * int.parse(_quantityTextController.text);
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -40,7 +49,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           Flexible(
             flex: 2,
             child: FancyShimmerImage(
-              imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+              imageUrl: getCurrentProduct.imageUrl,
               boxFit: BoxFit.scaleDown,
               width: size.width,
             ),
@@ -68,7 +77,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextWidget(
-                          text: "title",
+                          text: getCurrentProduct.title,
                           color: color,
                           textSize: 25.0,
                           isTitle: true,
@@ -87,13 +96,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextWidget(
-                          text: '\$2.59',
+                          text: "\$${usedPrice.toStringAsFixed(2)}",
                           color: Colors.green,
                           textSize: 22,
                           isTitle: true,
                         ),
                         TextWidget(
-                          text: "/Kg",
+                          text: getCurrentProduct.isPiece ? "/Piece" : "/Kg",
                           color: color,
                           textSize: 12,
                         ),
@@ -101,9 +110,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                           width: 10,
                         ),
                         Visibility(
-                          visible: true,
+                          visible: getCurrentProduct.isOnSale ? true : false,
                           child: Text(
-                            '\$3.9',
+                            '\$${getCurrentProduct.price.toStringAsFixed(2)}',
                             style: TextStyle(
                               fontSize: 15,
                               color: color,
@@ -240,13 +249,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                               Row(
                                 children: [
                                   TextWidget(
-                                    text: "\$2.59/",
+                                    text: "\$${totalPrice.toStringAsFixed(2)}/",
                                     color: color,
                                     textSize: 20.0,
                                     isTitle: true,
                                   ),
                                   TextWidget(
-                                    text: "${_quantityTextController.text}/Kg",
+                                    text:
+                                        "${_quantityTextController.text}${getCurrentProduct.isPiece ? " Piece" : " Kg"}${getCurrentProduct.isPiece && (int.parse(_quantityTextController.text) > 1) ? 's' : ''}",
                                     color: color,
                                     textSize: 16.0,
                                     isTitle: true,
