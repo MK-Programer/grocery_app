@@ -6,7 +6,10 @@ import 'package:grocery_app/inner_screens/product_details.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/cart_model.dart';
+import '../../provider/products_provider.dart';
 import '../../services/utils.dart';
 
 class CartWidget extends StatefulWidget {
@@ -34,6 +37,12 @@ class _CartWidgetState extends State<CartWidget> {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
+    final productProvider = Provider.of<ProductsProvider>(context);
+    final cartModel = Provider.of<CartModel>(context);
+    final getCurrentProduct = productProvider.findProdById(cartModel.productId);
+    double usedPrice = getCurrentProduct.isOnSale
+        ? getCurrentProduct.salePrice
+        : getCurrentProduct.price;
     return GestureDetector(
       onTap: () {
         GlobalMethods.navigateTo(
@@ -60,7 +69,7 @@ class _CartWidgetState extends State<CartWidget> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: FancyShimmerImage(
-                        imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                        imageUrl: getCurrentProduct.imageUrl,
                         boxFit: BoxFit.fill,
                       ),
                     ),
@@ -68,7 +77,7 @@ class _CartWidgetState extends State<CartWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextWidget(
-                          text: 'Title',
+                          text: getCurrentProduct.title,
                           color: color,
                           textSize: 20,
                           isTitle: true,
@@ -167,7 +176,7 @@ class _CartWidgetState extends State<CartWidget> {
                           ),
                           const HeartBTN(),
                           TextWidget(
-                            text: '\$0.29',
+                            text: "\$${usedPrice.toStringAsFixed(2)}",
                             color: color,
                             textSize: 18,
                             maxLines: 1,

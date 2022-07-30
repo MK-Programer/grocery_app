@@ -32,8 +32,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     final Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
     final productId = ModalRoute.of(context)!.settings.arguments as String;
-    final productprovider = Provider.of<ProductsProvider>(context);
-    final getCurrentProduct = productprovider.findProdById(productId);
+    final productProvider = Provider.of<ProductsProvider>(context);
+    final getCurrentProduct = productProvider.findProdById(productId);
     double usedPrice = getCurrentProduct.isOnSale
         ? getCurrentProduct.salePrice
         : getCurrentProduct.price;
