@@ -41,6 +41,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         : getCurrentProduct.price;
     double totalPrice = usedPrice * int.parse(_quantityTextController.text);
     final cartProvider = Provider.of<CartProvider>(context);
+    bool? isInCart =
+        cartProvider.getCartItems.containsKey(getCurrentProduct.id);
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -278,18 +280,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(10.0),
                             child: InkWell(
-                              onTap: () {
-                                cartProvider.addProductsToCart(
-                                  productId: getCurrentProduct.id,
-                                  quantity: int.parse(
-                                    _quantityTextController.text,
-                                  ),
-                                );
-                              },
+                              onTap: isInCart
+                                  ? null
+                                  : () {
+                                      cartProvider.addProductsToCart(
+                                        productId: getCurrentProduct.id,
+                                        quantity: int.parse(
+                                          _quantityTextController.text,
+                                        ),
+                                      );
+                                    },
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: TextWidget(
-                                  text: "Add to cart",
+                                  text: isInCart ? "In cart" : "Add to cart",
                                   color: Colors.white,
                                   textSize: 18.0,
                                 ),
