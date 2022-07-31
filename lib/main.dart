@@ -9,6 +9,7 @@ import 'package:grocery_app/provider/products_provider.dart';
 import 'package:grocery_app/provider/viewed_provider.dart';
 import 'package:grocery_app/provider/wishlist_provider.dart';
 import 'package:grocery_app/screens/auth/forget_password_screen.dart';
+import 'package:grocery_app/screens/auth/login_screen.dart';
 import 'package:grocery_app/screens/auth/register_screen.dart';
 import 'package:grocery_app/screens/btm_bar.dart';
 import 'package:grocery_app/screens/orders/orders_screen.dart';
@@ -111,7 +112,7 @@ class _MyAppState extends State<MyApp> {
                   debugShowCheckedModeBanner: false,
                   title: 'Grocery App',
                   theme: Styles.themeData(themeProvider.getDarkTheme, context),
-                  home: const BottomBarScreen(),
+                  home: const LoginScreen(),
                   routes: {
                     OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
                     FeedsScreen.routeName: (ctx) => const FeedsScreen(),
