@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:grocery_app/provider/wishlist_provider.dart';
 import 'package:grocery_app/screens/wishlist/wishlist_widget.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
@@ -22,8 +23,11 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
-    bool isEmpty = true;
-    return isEmpty
+    final wishListProvider = Provider.of<WishListProvider>(context);
+    final wishListItemsList =
+        wishListProvider.getwishListItems.values.toList().reversed.toList();
+
+    return wishListItemsList.isEmpty
         ? const EmptyScreen(
             imgName: "wishlist",
             title: "Your wishlist is empty",
@@ -37,7 +41,7 @@ class _WishListScreenState extends State<WishListScreen> {
               automaticallyImplyLeading: false,
               leading: const BackWidget(),
               title: TextWidget(
-                text: 'Wishlist (2)',
+                text: 'Wishlist (${wishListItemsList.length})',
                 color: color,
                 isTitle: true,
                 textSize: 22,
@@ -49,7 +53,9 @@ class _WishListScreenState extends State<WishListScreen> {
                     GlobalMethods.warningDialog(
                       title: "Empty your wishlist?",
                       subTitle: "Are you sure?",
-                      fct: () {},
+                      fct: () {
+                        wishListProvider.clearWishList();
+                      },
                       context: context,
                     );
                   },
@@ -61,12 +67,15 @@ class _WishListScreenState extends State<WishListScreen> {
               ],
             ),
             body: MasonryGridView.count(
-              itemCount: 3,
+              itemCount: wishListItemsList.length,
               crossAxisCount: 2,
               // mainAxisSpacing: 16.0,
               // crossAxisSpacing: 20.0,
               itemBuilder: (context, index) {
-                return const WishListWidget();
+                return ChangeNotifierProvider.value(
+                  value: wishListItemsList[index],
+                  child: const WishListWidget(),
+                );
               },
             ),
           );

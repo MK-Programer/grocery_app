@@ -4,9 +4,11 @@ import 'package:grocery_app/services/utils.dart';
 
 class BackWidget extends StatelessWidget {
   final Color? colorPassed;
+  final Function? fct;
   const BackWidget({
     Key? key,
     this.colorPassed,
+    this.fct,
   }) : super(key: key);
 
   @override
@@ -14,7 +16,10 @@ class BackWidget extends StatelessWidget {
     final Color color = Utils(context).color;
     return InkWell(
       onTap: () {
-        Navigator.canPop(context) ? Navigator.pop(context) : null;
+        if (fct != null) {
+          fct!();
+        }
+        Navigator.canPop(context) ? Navigator.of(context).pop() : null;
       },
       borderRadius: BorderRadius.circular(12.0),
       child: Icon(

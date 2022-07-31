@@ -2,7 +2,9 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/provider/products_provider.dart';
+import 'package:grocery_app/provider/viewed_provider.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
@@ -34,23 +36,35 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     final Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
+
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    final wishListProvider = Provider.of<WishListProvider>(context);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final productProvider = Provider.of<ProductsProvider>(context);
     final getCurrentProduct = productProvider.findProdById(productId);
+
     double usedPrice = getCurrentProduct.isOnSale
         ? getCurrentProduct.salePrice
         : getCurrentProduct.price;
+
     double totalPrice = usedPrice * int.parse(_quantityTextController.text);
-    final cartProvider = Provider.of<CartProvider>(context);
+
     bool? isInCart =
         cartProvider.getCartItems.containsKey(getCurrentProduct.id);
-    final wishListProvider = Provider.of<WishListProvider>(context);
+
     bool? isInWishList =
         wishListProvider.getwishListItems.containsKey(getCurrentProduct.id);
 
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        leading: const BackWidget(),
+        leading: BackWidget(
+          fct: () {
+            viewedProdProvider.addProductToHistory(productId: productId);
+          },
+        ),
         elevation: 0.0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
