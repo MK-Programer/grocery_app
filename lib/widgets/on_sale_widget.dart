@@ -7,9 +7,11 @@ import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/firebase_consts.dart';
 import '../models/products_model.dart';
 import '../provider/cart_provider.dart';
 import '../provider/wishlist_provider.dart';
+import '../services/global_methods.dart';
 import 'price_widget.dart';
 
 class OnSaleWidget extends StatefulWidget {
@@ -82,6 +84,13 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                               onTap: isInCart
                                   ? null
                                   : () {
+                                      if (user == null) {
+                                        GlobalMethods.errorDialog(
+                                            subTitle:
+                                                "No user found, Please login first",
+                                            context: context);
+                                        return;
+                                      }
                                       cartProvider.addProductsToCart(
                                         productId: productModel.id,
                                         quantity: 1,

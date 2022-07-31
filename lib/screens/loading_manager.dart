@@ -15,12 +15,12 @@ class LoadingManager extends StatelessWidget {
     return Stack(
       children: [
         child,
-        !isLoading
+        isLoading
             ? Container(
                 color: Colors.black.withOpacity(0.7),
               )
             : Container(),
-        !isLoading
+        isLoading
             ? const Center(
                 child: SpinKitFadingFour(
                   color: Colors.white,

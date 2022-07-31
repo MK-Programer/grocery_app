@@ -9,6 +9,7 @@ import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../consts/firebase_consts.dart';
 import '../../provider/cart_provider.dart';
 import '../../provider/products_provider.dart';
 
@@ -39,9 +40,10 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          GlobalMethods.navigateTo(
-            ctx: context,
-            routeName: ProductDetails.routeName,
+          Navigator.pushNamed(
+            context,
+            ProductDetails.routeName,
+            arguments: viewedProduct.id,
           );
         },
         child: Row(
@@ -84,6 +86,12 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                 onTap: isInCart
                     ? null
                     : () {
+                        if (user == null) {
+                          GlobalMethods.errorDialog(
+                              subTitle: "No user found, Please login first",
+                              context: context);
+                          return;
+                        }
                         cartProvider.addProductsToCart(
                             productId: viewedProduct.id, quantity: 1);
                       },

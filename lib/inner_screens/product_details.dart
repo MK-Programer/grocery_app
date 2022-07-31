@@ -11,8 +11,10 @@ import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/firebase_consts.dart';
 import '../provider/cart_provider.dart';
 import '../provider/wishlist_provider.dart';
+import '../services/global_methods.dart';
 
 class ProductDetails extends StatefulWidget {
   static const String routeName = "/ProductDetails";
@@ -62,6 +64,12 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         leading: BackWidget(
           fct: () {
+            if (user == null) {
+              GlobalMethods.errorDialog(
+                  subTitle: "No user found, Please login first",
+                  context: context);
+              return;
+            }
             viewedProdProvider.addProductToHistory(productId: productId);
           },
         ),
@@ -305,6 +313,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                               onTap: isInCart
                                   ? null
                                   : () {
+                                      if (user == null) {
+                                        GlobalMethods.errorDialog(
+                                            subTitle:
+                                                "No user found, Please login first",
+                                            context: context);
+                                        return;
+                                      }
                                       cartProvider.addProductsToCart(
                                         productId: getCurrentProduct.id,
                                         quantity: int.parse(

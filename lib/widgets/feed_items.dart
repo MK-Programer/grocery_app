@@ -9,6 +9,8 @@ import 'package:grocery_app/widgets/price_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/firebase_consts.dart';
+import '../services/global_methods.dart';
 import '../services/utils.dart';
 import 'heart_btn.dart';
 
@@ -171,6 +173,12 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   onPressed: isInCart
                       ? null
                       : () {
+                          if (user == null) {
+                            GlobalMethods.errorDialog(
+                                subTitle: "No user found, Please login first",
+                                context: context);
+                            return;
+                          }
                           cartProvider.addProductsToCart(
                             productId: productModel.id,
                             quantity: int.parse(_quantityTextController.text),

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery_app/screens/btm_bar.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
@@ -55,6 +56,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           password: _passwordTextController.text.trim(),
         );
         print('Successfully registered');
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const BottomBarScreen(),
+          ),
+        );
       } on FirebaseException catch (error) {
         setState(() => _isLoading = false);
         GlobalMethods.errorDialog(
