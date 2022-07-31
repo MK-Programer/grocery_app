@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery_app/inner_screens/on_sale_screen.dart';
@@ -50,59 +51,84 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  final Future<FirebaseApp> _firebaseInitialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) {
-            return themeChangeProvider;
-          },
-        ),
-        ChangeNotifierProvider(
-          create: (_) {
-            return ProductsProvider();
-          },
-        ),
-        ChangeNotifierProvider(
-          create: (_) {
-            return CartProvider();
-          },
-        ),
-        ChangeNotifierProvider(
-          create: (_) {
-            return WishListProvider();
-          },
-        ),
-        ChangeNotifierProvider(
-          create: (_) {
-            return ViewedProdProvider();
-          },
-        ),
-      ],
-      child: Consumer<DarkThemeProvider>(
-        builder: (context, themeProvider, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Grocery App',
-            theme: Styles.themeData(themeProvider.getDarkTheme, context),
-            home: const BottomBarScreen(),
-            routes: {
-              OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
-              FeedsScreen.routeName: (ctx) => const FeedsScreen(),
-              ProductDetails.routeName: (ctx) => const ProductDetails(),
-              WishListScreen.routeName: (ctx) => const WishListScreen(),
-              OrdersScreen.routeName: (ctx) => const OrdersScreen(),
-              ViewedRecentlyScreen.routeName: (ctx) =>
-                  const ViewedRecentlyScreen(),
-              RegisterScreen.routeName: (ctx) => const RegisterScreen(),
-              ForgetPasswordScreen.routeName: (ctx) =>
-                  const ForgetPasswordScreen(),
-              CategoryScreen.routeName: (ctx) => const CategoryScreen(),
-            },
+    return FutureBuilder(
+        future: _firebaseInitialization,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return const MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                body: Center(
+                  child: Text("An error occured"),
+                ),
+              ),
+            );
+          }
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (_) {
+                  return themeChangeProvider;
+                },
+              ),
+              ChangeNotifierProvider(
+                create: (_) {
+                  return ProductsProvider();
+                },
+              ),
+              ChangeNotifierProvider(
+                create: (_) {
+                  return CartProvider();
+                },
+              ),
+              ChangeNotifierProvider(
+                create: (_) {
+                  return WishListProvider();
+                },
+              ),
+              ChangeNotifierProvider(
+                create: (_) {
+                  return ViewedProdProvider();
+                },
+              ),
+            ],
+            child: Consumer<DarkThemeProvider>(
+              builder: (context, themeProvider, child) {
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Grocery App',
+                  theme: Styles.themeData(themeProvider.getDarkTheme, context),
+                  home: const BottomBarScreen(),
+                  routes: {
+                    OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
+                    FeedsScreen.routeName: (ctx) => const FeedsScreen(),
+                    ProductDetails.routeName: (ctx) => const ProductDetails(),
+                    WishListScreen.routeName: (ctx) => const WishListScreen(),
+                    OrdersScreen.routeName: (ctx) => const OrdersScreen(),
+                    ViewedRecentlyScreen.routeName: (ctx) =>
+                        const ViewedRecentlyScreen(),
+                    RegisterScreen.routeName: (ctx) => const RegisterScreen(),
+                    ForgetPasswordScreen.routeName: (ctx) =>
+                        const ForgetPasswordScreen(),
+                    CategoryScreen.routeName: (ctx) => const CategoryScreen(),
+                  },
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
+        });
   }
 }
