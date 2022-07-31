@@ -2,10 +2,14 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/inner_screens/product_details.dart';
+import 'package:grocery_app/models/wishlist_model.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/wishlist_provider.dart';
 
 class WishListWidget extends StatelessWidget {
   const WishListWidget({Key? key}) : super(key: key);
@@ -14,6 +18,11 @@ class WishListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     final Size size = Utils(context).getScreenSize;
+    final wishListProvider = Provider.of<WishListProvider>(context);
+
+    final wishListModel = Provider.of<WishlistModel>(context);
+    bool? isInWishList =
+        wishListProvider.getwishListItems.containsKey(wishListModel.id);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: GestureDetector(
@@ -56,7 +65,10 @@ class WishListWidget extends StatelessWidget {
                             color: color,
                           ),
                         ),
-                        const HeartBTN(),
+                        // HeartBTN(
+                        //   productId: wishListModel.id,
+                        //   isInWishList: isInWishList,
+                        // ),
                       ],
                     ),
                   ),

@@ -8,7 +8,7 @@ class WishListProvider with ChangeNotifier {
     return _wishListItems;
   }
 
-  void addProductsToWishList({
+  void addRemoveProductsToWishList({
     required String productId,
   }) {
     if (_wishListItems.containsKey(productId)) {

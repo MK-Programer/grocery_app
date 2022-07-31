@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:grocery_app/inner_screens/product_details.dart';
 import 'package:grocery_app/models/products_model.dart';
 import 'package:grocery_app/provider/cart_provider.dart';
+import 'package:grocery_app/provider/wishlist_provider.dart';
 import 'package:grocery_app/widgets/price_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishListProvider = Provider.of<WishListProvider>(context);
     bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    bool? isInWishList =
+        wishListProvider.getwishListItems.containsKey(productModel.id);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -82,9 +86,12 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                         maxLines: 1,
                       ),
                     ),
-                    const Flexible(
+                    Flexible(
                       flex: 1,
-                      child: HeartBTN(),
+                      child: HeartBTN(
+                        productId: productModel.id,
+                        isInWishList: isInWishList,
+                      ),
                     ),
                   ],
                 ),

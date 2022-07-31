@@ -6,6 +6,7 @@ import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/empty_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../services/utils.dart';
 

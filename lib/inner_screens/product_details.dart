@@ -10,6 +10,7 @@ import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/cart_provider.dart';
+import '../provider/wishlist_provider.dart';
 
 class ProductDetails extends StatefulWidget {
   static const String routeName = "/ProductDetails";
@@ -43,6 +44,10 @@ class _ProductDetailsState extends State<ProductDetails> {
     final cartProvider = Provider.of<CartProvider>(context);
     bool? isInCart =
         cartProvider.getCartItems.containsKey(getCurrentProduct.id);
+    final wishListProvider = Provider.of<WishListProvider>(context);
+    bool? isInWishList =
+        wishListProvider.getwishListItems.containsKey(getCurrentProduct.id);
+
     return Scaffold(
       appBar: AppBar(
         leading: const BackWidget(),
@@ -87,7 +92,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           textSize: 25.0,
                           isTitle: true,
                         ),
-                        const HeartBTN(),
+                        HeartBTN(
+                          productId: getCurrentProduct.id,
+                          isInWishList: isInWishList,
+                        ),
                       ],
                     ),
                   ),

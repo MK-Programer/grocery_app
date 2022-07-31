@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../models/products_model.dart';
 import '../provider/cart_provider.dart';
+import '../provider/wishlist_provider.dart';
 import 'price_widget.dart';
 
 class OnSaleWidget extends StatefulWidget {
@@ -25,7 +26,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishListProvider = Provider.of<WishListProvider>(context);
     bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    bool? isInWishList =
+        wishListProvider.getwishListItems.containsKey(productModel.id);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -87,7 +91,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                 color: isInCart ? Colors.green : color,
                               ),
                             ),
-                            const HeartBTN(),
+                            HeartBTN(
+                              productId: productModel.id,
+                              isInWishList: isInWishList,
+                            ),
                           ],
                         ),
                       ],
