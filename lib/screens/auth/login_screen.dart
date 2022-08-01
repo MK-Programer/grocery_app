@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _submitFormOnLogin() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+    setState(() => _isLoading = true);
     if (isValid) {
       // _formKey.currentState!.save();
       try {
@@ -48,12 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
           password: _passwordTextController.text.trim(),
         );
         print('Successfully logged in');
-        // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => const BottomBarScreen(),
           ),
-          (Route<dynamic> route) => false,
+          ((route) => false),
         );
       } on FirebaseException catch (error) {
         setState(() => _isLoading = false);
