@@ -21,10 +21,9 @@ class HeartBTN extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     final wishListProvider = Provider.of<WishListProvider>(context);
-
+    final user = authInstance.currentUser;
     return GestureDetector(
       onTap: () {
-        print("user id is ${user!.uid}");
         if (user == null) {
           GlobalMethods.errorDialog(
               subTitle: "No user found, Please login first", context: context);

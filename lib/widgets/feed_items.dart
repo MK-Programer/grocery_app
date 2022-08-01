@@ -47,6 +47,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
     bool? isInWishList =
         wishListProvider.getwishListItems.containsKey(productModel.id);
+    final user = authInstance.currentUser;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(

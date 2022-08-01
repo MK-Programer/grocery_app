@@ -38,7 +38,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     final Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
-
+    final user = authInstance.currentUser;
     final cartProvider = Provider.of<CartProvider>(context);
 
     final wishListProvider = Provider.of<WishListProvider>(context);
@@ -64,12 +64,6 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         leading: BackWidget(
           fct: () {
-            if (user == null) {
-              GlobalMethods.errorDialog(
-                  subTitle: "No user found, Please login first",
-                  context: context);
-              return;
-            }
             viewedProdProvider.addProductToHistory(productId: productId);
           },
         ),

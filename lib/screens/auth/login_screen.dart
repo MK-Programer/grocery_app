@@ -1,10 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_app/screens/auth/register_screen.dart';
+import 'package:grocery_app/screens/btm_bar.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
+import '../../consts/firebase_consts.dart';
 import '../../widgets/auth_button.dart';
+import '../../widgets/back_widget.dart';
 import '../../widgets/google_button.dart';
 import 'auth_helper.dart';
 
@@ -41,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = authInstance.currentUser;
     return Scaffold(
       body: Stack(
         children: [
@@ -52,8 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(
@@ -197,7 +201,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   AuthButton(
                     fct: () {
-                      // _submitFormOnLogin();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const BottomBarScreen(),
+                        ),
+                      );
                     },
                     buttonText: "Continue as a guest",
                     primary: Colors.black,

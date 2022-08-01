@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery_app/consts/firebase_consts.dart';
+import 'package:grocery_app/screens/auth/login_screen.dart';
 import 'package:grocery_app/screens/orders/orders_screen.dart';
 import 'package:grocery_app/screens/viewed_recently/viewed_recently_screen.dart';
 import 'package:grocery_app/screens/wishlist/wishlist_screen.dart';
@@ -20,6 +22,7 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   final TextEditingController _addressTextController =
       TextEditingController(text: "");
+  final user = authInstance.currentUser;
   @override
   void dispose() {
     _addressTextController.dispose();
@@ -154,16 +157,32 @@ class _UserScreenState extends State<UserScreen> {
                   value: themeState.getDarkTheme,
                 ),
                 _listTiles(
-                  title: 'Logout',
-                  icon: IconlyLight.logout,
-                  onPressed: () {
-                    GlobalMethods.warningDialog(
-                      title: "Sign out",
-                      subTitle: "Do you want to sign out",
-                      fct: () {},
-                      context: context,
-                    );
-                  },
+                  title: user == null ? 'Login' : 'Logout',
+                  icon: user == null ? IconlyLight.login : IconlyLight.logout,
+                  onPressed: user == null
+                      ? () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        }
+                      : () {
+                          GlobalMethods.warningDialog(
+                            title: "Sign out",
+                            subTitle: "Do you want to sign out",
+                            fct: () async {
+                              await authInstance.signOut();
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                            context: context,
+                          );
+                        },
                   color: color,
                 ),
                 // listTileAsRow(),

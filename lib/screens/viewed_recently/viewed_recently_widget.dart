@@ -36,6 +36,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
     double usedPrice =
         viewedProduct.isOnSale ? viewedProduct.salePrice : viewedProduct.price;
     bool? isInCart = cartProvider.getCartItems.containsKey(viewedProduct.id);
+    final user = authInstance.currentUser;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
