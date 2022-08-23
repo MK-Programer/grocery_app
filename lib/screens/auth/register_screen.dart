@@ -56,6 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           email: _emailTextController.text.toLowerCase().trim(),
           password: _passwordTextController.text.trim(),
         );
+        // TODO: ADD TOAST FOR SUCCESSFULL INDICATOR
         print('Successfully registered');
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(
