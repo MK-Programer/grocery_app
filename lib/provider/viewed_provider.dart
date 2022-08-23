@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:grocery_app/models/viewed_model.dart';
 
 class ViewedProdProvider with ChangeNotifier {
-  Map<String, ViewedProductModel> _viewedProdListItems = {};
+  final Map<String, ViewedProductModel> _viewedProdListItems = {};
 
   Map<String, ViewedProductModel> get getViewedProdListItems {
     return _viewedProdListItems;

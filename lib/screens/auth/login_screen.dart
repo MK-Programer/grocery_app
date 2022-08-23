@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
           password: _passwordTextController.text.trim(),
         );
         print('Successfully logged in');
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => const BottomBarScreen(),
@@ -71,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = authInstance.currentUser;
     return Scaffold(
       body: LoadingManager(
         isLoading: _isLoading,

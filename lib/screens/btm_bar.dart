@@ -49,7 +49,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-    final cartProvider = Provider.of<CartProvider>(context);
+    // final cartProvider = Provider.of<CartProvider>(context);
     bool isDark = themeState.getDarkTheme;
     return Scaffold(
       // appBar: AppBar(

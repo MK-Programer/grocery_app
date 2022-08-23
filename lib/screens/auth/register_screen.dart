@@ -57,6 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           password: _passwordTextController.text.trim(),
         );
         print('Successfully registered');
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const BottomBarScreen(),
