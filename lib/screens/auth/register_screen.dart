@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  final user = authInstance.currentUser;
   bool _isLoading = false;
   void _submitFormOnRegister() async {
     final isValid = _formKey.currentState!.validate();
@@ -56,7 +56,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
           email: _emailTextController.text.toLowerCase().trim(),
           password: _passwordTextController.text.trim(),
         );
-        // TODO: ADD TOAST FOR SUCCESSFULL INDICATOR
+        final user = authInstance.currentUser;
+        final uid = user?.uid;
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'id': uid,
+          'name': _fullNameTextController.text,
+          'email': _emailTextController.text.toLowerCase(),
+          'shippingAddress': _addressTextController.text,
+          'userWish': [],
+          'userCart': [],
+          'createdAt': Timestamp.now(),
+        });
         print('Successfully registered');
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(
