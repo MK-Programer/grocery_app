@@ -97,7 +97,7 @@ class _UserScreenState extends State<UserScreen> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: _name ?? 'User',
+                          text: _name ?? 'FullName',
                           style: TextStyle(
                             color: color,
                             fontSize: 25,
@@ -115,7 +115,7 @@ class _UserScreenState extends State<UserScreen> {
                     height: 5,
                   ),
                   TextWidget(
-                    text: _email ?? 'Email',
+                    text: _email ?? 'Email Address',
                     color: color,
                     textSize: 18,
                     // isTitle: true,
@@ -131,7 +131,7 @@ class _UserScreenState extends State<UserScreen> {
                   ),
                   _listTiles(
                     title: 'Address 2',
-                    subtitle: _address ?? 'Address',
+                    subtitle: _address ?? 'Shipping Address',
                     icon: IconlyLight.profile,
                     onPressed: () async {
                       await _showAddressDialog();
@@ -257,11 +257,34 @@ class _UserScreenState extends State<UserScreen> {
             // },
             controller: _addressTextController,
             maxLines: 5,
-            decoration: const InputDecoration(hintText: "Your address"),
+            decoration:
+                const InputDecoration(hintText: "Your shipping address"),
           ),
           actions: [
             TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                if (user == null) {
+                  Navigator.pop(context);
+                  GlobalMethods.errorDialog(
+                      subTitle: "No user found, Please login first",
+                      context: context);
+                  return;
+                }
+                String uid = user!.uid;
+                try {
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(uid)
+                      .update({
+                    'shippingAddress': _addressTextController.text,
+                  });
+                  Navigator.pop(context);
+                  setState(() => _address = _addressTextController.text);
+                } catch (error) {
+                  GlobalMethods.errorDialog(
+                      subTitle: '$error', context: context);
+                }
+              },
               child: const Text('Update'),
             ),
           ],
