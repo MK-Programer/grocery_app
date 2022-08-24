@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           MaterialPageRoute(
             builder: (context) => const BottomBarScreen(),
           ),
-          ((route) => false),
+          (route) => false,
         );
       } on FirebaseException catch (error) {
         setState(() => _isLoading = false);
