@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:grocery_app/screens/btm_bar.dart';
+import 'package:grocery_app/consts/consts.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/products_provider.dart';
+import 'screens/btm_bar.dart';
 
 class FetchScreen extends StatefulWidget {
   const FetchScreen({Key? key}) : super(key: key);
@@ -13,9 +14,11 @@ class FetchScreen extends StatefulWidget {
 }
 
 class _FetchScreenState extends State<FetchScreen> {
+  List<String> images = Consts.landingImages;
   @override
   void initState() {
     super.initState();
+    images.shuffle();
     Future.delayed(
       const Duration(microseconds: 5),
       () async {
@@ -37,7 +40,7 @@ class _FetchScreenState extends State<FetchScreen> {
       body: Stack(
         children: [
           Image.asset(
-            'assets/images/landing/buyfood.jpg',
+            images[0],
             fit: BoxFit.cover,
             height: double.infinity,
           ),

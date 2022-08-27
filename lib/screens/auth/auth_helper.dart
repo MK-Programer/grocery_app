@@ -38,7 +38,7 @@ class _AuthCarouselState extends State<AuthCarousel> {
     return Swiper(
       itemBuilder: (BuildContext context, int index) {
         return Image.asset(
-          "assets/images/landing/${Consts.landingImages[index]}.jpg",
+          Consts.landingImages[index],
           fit: BoxFit.cover,
         );
       },

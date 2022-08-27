@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
                   return Image.asset(
-                    "assets/images/offers/${Consts.offerImages[index]}.jpg",
+                    Consts.offerImages[index],
                     fit: BoxFit.fill,
                   );
                 },
