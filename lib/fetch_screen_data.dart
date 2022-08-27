@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grocery_app/consts/consts.dart';
 import 'package:provider/provider.dart';
 
+import 'provider/cart_provider.dart';
 import 'provider/products_provider.dart';
 import 'screens/btm_bar.dart';
 
@@ -24,7 +25,9 @@ class _FetchScreenState extends State<FetchScreen> {
       () async {
         final productsProvider =
             Provider.of<ProductsProvider>(context, listen: false);
+        final cartProvider = Provider.of<CartProvider>(context, listen: false);
         await productsProvider.fetchProducts();
+        await cartProvider.fetchCart(context: context);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const BottomBarScreen(),
@@ -36,6 +39,7 @@ class _FetchScreenState extends State<FetchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Add a splash screen later
     return Scaffold(
       body: Stack(
         children: [
