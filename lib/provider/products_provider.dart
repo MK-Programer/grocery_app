@@ -45,9 +45,21 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductModel> findByCategory(String categoryName) {
     return _productsList
-        .where((element) => element.productCategoryName
-            .toLowerCase()
-            .contains(categoryName.toLowerCase()))
+        .where(
+          (element) => element.productCategoryName.toLowerCase().contains(
+                categoryName.toLowerCase(),
+              ),
+        )
+        .toList();
+  }
+
+  List<ProductModel> searchQuery(String searchText) {
+    return _productsList
+        .where(
+          (element) => element.title.toLowerCase().contains(
+                searchText.toLowerCase(),
+              ),
+        )
         .toList();
   }
 
