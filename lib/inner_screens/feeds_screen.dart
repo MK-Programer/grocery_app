@@ -19,6 +19,15 @@ class FeedsScreen extends StatefulWidget {
 class _FeedsScreenState extends State<FeedsScreen> {
   final TextEditingController _searchTextController = TextEditingController();
   final FocusNode _searchTextFocusNode = FocusNode();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   final productsProvider =
+  //       Provider.of<ProductsProvider>(context, listen: false);
+  //   productsProvider.fetchProducts();
+  // }
+
   @override
   void dispose() {
     _searchTextController.dispose();
