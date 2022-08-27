@@ -85,7 +85,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                 borderRadius: BorderRadius.circular(12.0),
                 onTap: isInCart
                     ? null
-                    : () {
+                    : () async {
                         if (user == null) {
                           GlobalMethods.errorDialog(
                               subTitle: "No user found, Please login first",
@@ -99,6 +99,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                           quantity: 1,
                           context: context,
                         );
+                        await cartProvider.fetchCart(context: context);
                       },
                 child: Material(
                   borderRadius: BorderRadius.circular(12.0),

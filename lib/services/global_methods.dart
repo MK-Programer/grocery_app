@@ -129,7 +129,11 @@ class GlobalMethods {
       await Fluttertoast.showToast(
         msg: 'Item has been added to your cart',
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey.shade600,
+        textColor: Colors.white,
+        fontSize: 16.0,
       );
     } catch (error) {
       errorDialog(subTitle: '$error', context: context);

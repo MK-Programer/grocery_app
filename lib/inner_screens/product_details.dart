@@ -305,7 +305,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: InkWell(
                               onTap: isInCart
                                   ? null
-                                  : () {
+                                  : () async {
                                       if (user == null) {
                                         GlobalMethods.errorDialog(
                                             subTitle:
@@ -319,13 +319,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       //     _quantityTextController.text,
                                       //   ),
                                       // );
-                                      GlobalMethods.addToCart(
+                                      await GlobalMethods.addToCart(
                                         productId: getCurrentProduct.id,
                                         quantity: int.parse(
                                           _quantityTextController.text,
                                         ),
                                         context: context,
                                       );
+                                      await cartProvider.fetchCart(
+                                          context: context);
                                     },
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),

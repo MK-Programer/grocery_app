@@ -173,7 +173,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 child: TextButton(
                   onPressed: isInCart
                       ? null
-                      : () {
+                      : () async {
                           if (user == null) {
                             GlobalMethods.errorDialog(
                                 subTitle: "No user found, Please login first",
@@ -184,11 +184,12 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                           //   productId: productModel.id,
                           //   quantity: int.parse(_quantityTextController.text),
                           // );
-                          GlobalMethods.addToCart(
+                          await GlobalMethods.addToCart(
                             productId: productModel.id,
                             quantity: int.parse(_quantityTextController.text),
                             context: context,
                           );
+                          await cartProvider.fetchCart(context: context);
                         },
                   style: ButtonStyle(
                     backgroundColor:
