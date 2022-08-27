@@ -313,11 +313,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                                             context: context);
                                         return;
                                       }
-                                      cartProvider.addProductsToCart(
+                                      // cartProvider.addProductsToCart(
+                                      //   productId: getCurrentProduct.id,
+                                      //   quantity: int.parse(
+                                      //     _quantityTextController.text,
+                                      //   ),
+                                      // );
+                                      GlobalMethods.addToCart(
                                         productId: getCurrentProduct.id,
                                         quantity: int.parse(
                                           _quantityTextController.text,
                                         ),
+                                        context: context,
                                       );
                                     },
                               child: Padding(

@@ -180,9 +180,14 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                                 context: context);
                             return;
                           }
-                          cartProvider.addProductsToCart(
+                          // cartProvider.addProductsToCart(
+                          //   productId: productModel.id,
+                          //   quantity: int.parse(_quantityTextController.text),
+                          // );
+                          GlobalMethods.addToCart(
                             productId: productModel.id,
                             quantity: int.parse(_quantityTextController.text),
+                            context: context,
                           );
                         },
                   style: ButtonStyle(

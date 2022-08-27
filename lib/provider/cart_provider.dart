@@ -8,20 +8,20 @@ class CartProvider with ChangeNotifier {
     return _cartItems;
   }
 
-  void addProductsToCart({
-    required String productId,
-    required int quantity,
-  }) {
-    _cartItems.putIfAbsent(
-      productId,
-      () => CartModel(
-        id: DateTime.now().toString(),
-        productId: productId,
-        quantity: quantity,
-      ),
-    );
-    notifyListeners(); //! update the listeners
-  }
+  // void addProductsToCart({
+  //   required String productId,
+  //   required int quantity,
+  // }) {
+  //   _cartItems.putIfAbsent(
+  //     productId,
+  //     () => CartModel(
+  //       id: DateTime.now().toString(),
+  //       productId: productId,
+  //       quantity: quantity,
+  //     ),
+  //   );
+  //   notifyListeners(); //! update the listeners
+  // }
 
   void reduceQuantityByOne({required String productId}) {
     _cartItems.update(

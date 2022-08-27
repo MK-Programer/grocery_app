@@ -92,9 +92,15 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                             context: context);
                                         return;
                                       }
-                                      cartProvider.addProductsToCart(
+
+                                      // cartProvider.addProductsToCart(
+                                      //   productId: productModel.id,
+                                      //   quantity: 1,
+                                      // );
+                                      GlobalMethods.addToCart(
                                         productId: productModel.id,
                                         quantity: 1,
+                                        context: context,
                                       );
                                     },
                               child: Icon(
