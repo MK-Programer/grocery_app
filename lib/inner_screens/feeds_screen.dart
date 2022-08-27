@@ -22,13 +22,13 @@ class _FeedsScreenState extends State<FeedsScreen> {
   final FocusNode _searchTextFocusNode = FocusNode();
 
   List<ProductModel> _listProductSearch = [];
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   final productsProvider =
-  //       Provider.of<ProductsProvider>(context, listen: false);
-  //   productsProvider.fetchProducts();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    final productsProvider =
+        Provider.of<ProductsProvider>(context, listen: false);
+    productsProvider.fetchProducts();
+  }
 
   @override
   void dispose() {
