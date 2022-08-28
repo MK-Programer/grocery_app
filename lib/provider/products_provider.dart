@@ -19,6 +19,7 @@ class ProductsProvider with ChangeNotifier {
       (QuerySnapshot productSnapshot) {
         _productsList = [];
         // _productsList.clear();
+        // ignore: avoid_function_literals_in_foreach_calls
         productSnapshot.docs.forEach(
           (element) {
             _productsList.insert(

@@ -139,4 +139,35 @@ class GlobalMethods {
       errorDialog(subTitle: '$error', context: context);
     }
   }
+
+  static Future<void> addToWishlist({
+    required String productId,
+    required BuildContext context,
+  }) async {
+    final User? user = authInstance.currentUser;
+    final uid = user!.uid;
+    final wishlistId = const Uuid().v4();
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'userWish': FieldValue.arrayUnion([
+          {
+            'wishlistId': wishlistId,
+            'productId': productId,
+          }
+        ]),
+      });
+      // TODO: Refactor the flutter toast to be in a widget and use it
+      await Fluttertoast.showToast(
+        msg: 'Item has been added to your wishlist',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey.shade600,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    } catch (error) {
+      errorDialog(subTitle: '$error', context: context);
+    }
+  }
 }

@@ -47,6 +47,7 @@ class _UserScreenState extends State<UserScreen> {
       String uid = user!.uid;
       final DocumentSnapshot userDoc =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      // ignore: unnecessary_null_comparison
       if (userDoc == null) {
         return;
       } else {
@@ -278,6 +279,7 @@ class _UserScreenState extends State<UserScreen> {
                       .update({
                     'shippingAddress': _addressTextController.text,
                   });
+                  // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                   setState(() => _address = _addressTextController.text);
                 } catch (error) {

@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_app/fetch_screen_data.dart';
 import 'package:grocery_app/screens/auth/register_screen.dart';
-import 'package:grocery_app/screens/btm_bar.dart';
 import 'package:grocery_app/screens/loading_manager.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/text_widget.dart';

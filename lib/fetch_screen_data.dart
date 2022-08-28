@@ -13,6 +13,7 @@ class FetchScreen extends StatefulWidget {
   const FetchScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _FetchScreenState createState() => _FetchScreenState();
 }
 
@@ -38,6 +39,7 @@ class _FetchScreenState extends State<FetchScreen> {
           await cartProvider.fetchCart();
         }
 
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => const BottomBarScreen(),

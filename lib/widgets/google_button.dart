@@ -23,6 +23,7 @@ class GoogleButton extends StatelessWidget {
               accessToken: googleAuth.accessToken,
             ),
           );
+          // ignore: use_build_context_synchronously
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) => const BottomBarScreen(),
