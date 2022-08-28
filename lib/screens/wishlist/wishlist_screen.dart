@@ -53,8 +53,9 @@ class _WishListScreenState extends State<WishListScreen> {
                     GlobalMethods.warningDialog(
                       title: "Empty your wishlist?",
                       subTitle: "Are you sure?",
-                      fct: () {
-                        wishListProvider.clearOnlineWishlist();
+                      fct: () async {
+                        await wishListProvider.clearOnlineWishlist();
+                        wishListProvider.clearLocalWishlist();
                       },
                       context: context,
                     );

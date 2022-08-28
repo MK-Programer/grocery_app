@@ -46,6 +46,7 @@ class CartScreen extends StatelessWidget {
                       subTitle: "Are you sure?",
                       fct: () async {
                         await cartProvider.clearOnlineCart();
+                        cartProvider.clearLocalCart();
                       },
                       context: context,
                     );

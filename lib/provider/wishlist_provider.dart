@@ -78,8 +78,6 @@ class WishListProvider with ChangeNotifier {
     await userCollection.doc(user!.uid).update({
       'userWish': [],
     });
-    _wishListItems.clear();
-    notifyListeners();
   }
 
   //! Delete from the ui only

@@ -99,8 +99,6 @@ class CartProvider with ChangeNotifier {
     await userCollection.doc(user!.uid).update({
       'userCart': [],
     });
-    _cartItems.clear();
-    notifyListeners();
   }
 
   //! Delete from the ui only
