@@ -25,12 +25,10 @@ class CartProvider with ChangeNotifier {
   //   );
   //   notifyListeners(); //! update the listeners
   // }
-
+  final User? user = authInstance.currentUser;
+  final userCollection = FirebaseFirestore.instance.collection('users');
   Future<void> fetchCart({required BuildContext context}) async {
-    final User? user = authInstance.currentUser;
-    String uid = user!.uid;
-    final DocumentSnapshot userDoc =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final DocumentSnapshot userDoc = await userCollection.doc(user!.uid).get();
     if (userDoc == null) {
       return;
     }
@@ -72,7 +70,19 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeOneItem({required String productId}) {
+  Future<void> removeOneItem(
+      {required String cartId,
+      required String productId,
+      required int quantity}) async {
+    await userCollection.doc(user!.uid).update({
+      'userCart': FieldValue.arrayRemove([
+        {
+          'cartId': cartId,
+          'productId': productId,
+          'quantity': quantity,
+        }
+      ])
+    });
     _cartItems.remove(productId);
     notifyListeners();
   }
