@@ -189,7 +189,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                             quantity: int.parse(_quantityTextController.text),
                             context: context,
                           );
-                          await cartProvider.fetchCart(context: context);
+                          await cartProvider.fetchCart();
                         },
                   style: ButtonStyle(
                     backgroundColor:

@@ -326,8 +326,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                         ),
                                         context: context,
                                       );
-                                      await cartProvider.fetchCart(
-                                          context: context);
+                                      await cartProvider.fetchCart();
                                     },
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),

@@ -44,8 +44,8 @@ class CartScreen extends StatelessWidget {
                     GlobalMethods.warningDialog(
                       title: "Empty your cart?",
                       subTitle: "Are you sure?",
-                      fct: () {
-                        cartProvider.clearCart();
+                      fct: () async {
+                        await cartProvider.clearOnlineCart();
                       },
                       context: context,
                     );

@@ -27,7 +27,7 @@ class CartProvider with ChangeNotifier {
   // }
   final User? user = authInstance.currentUser;
   final userCollection = FirebaseFirestore.instance.collection('users');
-  Future<void> fetchCart({required BuildContext context}) async {
+  Future<void> fetchCart() async {
     final DocumentSnapshot userDoc = await userCollection.doc(user!.uid).get();
     if (userDoc == null) {
       return;
@@ -84,10 +84,21 @@ class CartProvider with ChangeNotifier {
       ])
     });
     _cartItems.remove(productId);
+    await fetchCart();
     notifyListeners();
   }
 
-  void clearCart() {
+  //! Delete from the firebase
+  Future<void> clearOnlineCart() async {
+    await userCollection.doc(user!.uid).update({
+      'userCart': [],
+    });
+    _cartItems.clear();
+    notifyListeners();
+  }
+
+  //! Delete from the ui only
+  void clearLocalCart() {
     _cartItems.clear();
     notifyListeners();
   }

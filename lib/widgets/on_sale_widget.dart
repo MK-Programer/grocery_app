@@ -102,8 +102,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                         quantity: 1,
                                         context: context,
                                       );
-                                      await cartProvider.fetchCart(
-                                          context: context);
+                                      await cartProvider.fetchCart();
                                     },
                               child: Icon(
                                 isInCart ? IconlyBold.bag2 : IconlyLight.bag2,

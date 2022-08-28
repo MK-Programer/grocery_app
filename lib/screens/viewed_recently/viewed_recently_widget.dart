@@ -99,7 +99,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                           quantity: 1,
                           context: context,
                         );
-                        await cartProvider.fetchCart(context: context);
+                        await cartProvider.fetchCart();
                       },
                 child: Material(
                   borderRadius: BorderRadius.circular(12.0),
