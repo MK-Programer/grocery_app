@@ -54,7 +54,7 @@ class _WishListScreenState extends State<WishListScreen> {
                       title: "Empty your wishlist?",
                       subTitle: "Are you sure?",
                       fct: () {
-                        wishListProvider.clearWishList();
+                        wishListProvider.clearOnlineWishlist();
                       },
                       context: context,
                     );
