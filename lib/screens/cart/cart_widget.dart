@@ -194,7 +194,8 @@ class _CartWidgetState extends State<CartWidget> {
                             isInWishList: isInWishList,
                           ),
                           TextWidget(
-                            text: "\$${usedPrice.toStringAsFixed(2)}",
+                            text:
+                                "\$${(usedPrice * int.parse(_quantityTextController.text)).toStringAsFixed(2)}",
                             color: color,
                             textSize: 18,
                             maxLines: 1,
