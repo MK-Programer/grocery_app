@@ -47,8 +47,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _submitFormOnRegister() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() => _isLoading = true);
     if (isValid) {
+      setState(() => _isLoading = true);
       _formKey.currentState!.save();
       try {
         await authInstance.createUserWithEmailAndPassword(
@@ -86,7 +86,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() => _isLoading = false);
       }
     }
-    setState(() => _isLoading = false);
   }
 
   @override
