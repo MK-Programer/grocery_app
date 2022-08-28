@@ -1,11 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:grocery_app/consts/firebase_consts.dart';
 import 'package:grocery_app/provider/products_provider.dart';
 import 'package:grocery_app/screens/cart/cart_widget.dart';
 import 'package:grocery_app/widgets/empty_widget.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../provider/cart_provider.dart';
 import '../../services/utils.dart';
@@ -17,6 +22,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     final cartProvider = Provider.of<CartProvider>(context);
+
     final cartItemsList = cartProvider.getCartItems.values
         .toList()
         .reversed
@@ -104,7 +110,51 @@ class CartScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: InkWell(
               borderRadius: BorderRadius.circular(10),
-              onTap: () {},
+              onTap: () async {
+                User? user = authInstance.currentUser;
+                final orderId = const Uuid().v4();
+                final productProvider =
+                    Provider.of<ProductsProvider>(ctx, listen: false);
+                cartProvider.getCartItems.forEach((key, value) async {
+                  final getCurrentProduct =
+                      productProvider.findProdById(value.productId);
+
+                  try {
+                    await FirebaseFirestore.instance
+                        .collection('orders')
+                        .doc(orderId)
+                        .set({
+                      'orderId': orderId,
+                      'userId': user!.uid,
+                      'productId': value.productId,
+                      'price': (getCurrentProduct.isOnSale
+                              ? getCurrentProduct.salePrice
+                              : getCurrentProduct.price) *
+                          value.quantity,
+                      'totalPrice': total,
+                      'quantity': value.quantity,
+                      'imageUrl': getCurrentProduct.imageUrl,
+                      'userName': user.displayName,
+                      'orderDate': Timestamp.now(),
+                    });
+                    await cartProvider.clearOnlineCart();
+
+                    cartProvider.clearLocalCart();
+                    // TODO: Fetch the orders here
+                    await Fluttertoast.showToast(
+                      msg: 'Your order has been placed',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.grey.shade600,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  } catch (error) {
+                    GlobalMethods.errorDialog(subTitle: '$error', context: ctx);
+                  } finally {}
+                });
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextWidget(

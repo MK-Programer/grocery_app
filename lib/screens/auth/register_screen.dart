@@ -57,6 +57,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
         final user = authInstance.currentUser;
         final uid = user?.uid;
+        user!.updateDisplayName(_fullNameTextController.text);
+        user.reload();
         await FirebaseFirestore.instance.collection('users').doc(uid).set({
           'id': uid,
           'name': _fullNameTextController.text,
