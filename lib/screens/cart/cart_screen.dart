@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery_app/consts/firebase_consts.dart';
+import 'package:grocery_app/provider/orders_provider.dart';
 import 'package:grocery_app/provider/products_provider.dart';
 import 'package:grocery_app/screens/cart/cart_widget.dart';
 import 'package:grocery_app/widgets/empty_widget.dart';
@@ -112,20 +113,23 @@ class CartScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               onTap: () async {
                 User? user = authInstance.currentUser;
-                final orderId = const Uuid().v4();
                 final productProvider =
                     Provider.of<ProductsProvider>(ctx, listen: false);
+                final ordersProvider =
+                    Provider.of<OrdersProvider>(ctx, listen: false);
                 cartProvider.getCartItems.forEach((key, value) async {
+                  final orderId = const Uuid().v4();
+
                   final getCurrentProduct =
                       productProvider.findProdById(value.productId);
 
                   try {
                     await FirebaseFirestore.instance
                         .collection('orders')
-                        .doc(orderId)
+                        .doc(user!.uid + orderId)
                         .set({
                       'orderId': orderId,
-                      'userId': user!.uid,
+                      'userId': user.uid,
                       'productId': value.productId,
                       'price': (getCurrentProduct.isOnSale
                               ? getCurrentProduct.salePrice
@@ -140,7 +144,7 @@ class CartScreen extends StatelessWidget {
                     await cartProvider.clearOnlineCart();
 
                     cartProvider.clearLocalCart();
-                    // TODO: Fetch the orders here
+                    ordersProvider.fetchOrders();
                     await Fluttertoast.showToast(
                       msg: 'Your order has been placed',
                       toastLength: Toast.LENGTH_SHORT,
