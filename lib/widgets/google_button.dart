@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_app/consts/firebase_consts.dart';
+import 'package:grocery_app/fetch_screen_data.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
-import '../screens/btm_bar.dart';
 import '../services/global_methods.dart';
 
 class GoogleButton extends StatelessWidget {
@@ -17,16 +18,30 @@ class GoogleButton extends StatelessWidget {
       final googleAuth = await googleAccount.authentication;
       if (googleAuth.accessToken != null && googleAuth.idToken != null) {
         try {
-          await authInstance.signInWithCredential(
+          final authResult = await authInstance.signInWithCredential(
             GoogleAuthProvider.credential(
               idToken: googleAuth.idToken,
               accessToken: googleAuth.accessToken,
             ),
           );
+          if (authResult.additionalUserInfo!.isNewUser) {
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(authResult.user!.uid)
+                .set({
+              'id': authResult.user!.uid,
+              'name': authResult.user!.displayName,
+              'email': authResult.user!.email,
+              'shippingAddress': '',
+              'userWish': [],
+              'userCart': [],
+              'createdAt': Timestamp.now(),
+            });
+          }
           // ignore: use_build_context_synchronously
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) => const BottomBarScreen(),
+              builder: (context) => const FetchScreen(),
             ),
             ((route) => false),
           );

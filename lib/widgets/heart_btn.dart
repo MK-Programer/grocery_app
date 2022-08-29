@@ -67,8 +67,8 @@ class _HeartBTNState extends State<HeartBTN> {
           ? const Padding(
               padding: EdgeInsets.all(8.0),
               child: SizedBox(
-                height: 20.0,
-                width: 20.0,
+                height: 15.0,
+                width: 15.0,
                 child: CircularProgressIndicator(),
               ),
             )

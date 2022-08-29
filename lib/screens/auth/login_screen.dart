@@ -40,9 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void _submitFormOnLogin() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() => _isLoading = true);
     if (isValid) {
-      // _formKey.currentState!.save();
+      _formKey.currentState!.save();
+      setState(() => _isLoading = true);
+
       try {
         await authInstance.signInWithEmailAndPassword(
           email: _emailTextController.text.toLowerCase().trim(),
@@ -67,7 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() => _isLoading = false);
       }
     }
-    setState(() => _isLoading = false);
   }
 
   @override
