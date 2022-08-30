@@ -10,6 +10,7 @@ import 'package:grocery_app/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../consts/firebase_consts.dart';
+import '../provider/viewed_provider.dart';
 import '../services/global_methods.dart';
 import '../services/utils.dart';
 import 'heart_btn.dart';
@@ -48,6 +49,8 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     bool? isInWishList =
         wishListProvider.getwishListItems.containsKey(productModel.id);
     final user = authInstance.currentUser;
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -55,6 +58,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
         color: Theme.of(context).cardColor,
         child: InkWell(
           onTap: () {
+            viewedProdProvider.addProductToHistory(productId: productModel.id);
             Navigator.pushNamed(
               context,
               ProductDetails.routeName,

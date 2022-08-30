@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery_app/provider/products_provider.dart';
-import 'package:grocery_app/provider/viewed_provider.dart';
+// import 'package:grocery_app/provider/viewed_provider.dart';
 import 'package:grocery_app/services/utils.dart';
 import 'package:grocery_app/widgets/back_widget.dart';
 import 'package:grocery_app/widgets/heart_btn.dart';
@@ -57,13 +57,13 @@ class _ProductDetailsState extends State<ProductDetails> {
     bool? isInWishList =
         wishListProvider.getwishListItems.containsKey(getCurrentProduct.id);
 
-    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
+    // final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         leading: BackWidget(
           fct: () {
-            viewedProdProvider.addProductToHistory(productId: productId);
+            // viewedProdProvider.addProductToHistory(productId: productId);
           },
         ),
         elevation: 0.0,
