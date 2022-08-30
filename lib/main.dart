@@ -57,84 +57,151 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _firebaseInitialization,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
+      future: _firebaseInitialization,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
               ),
-            );
-          } else if (snapshot.hasError) {
-            return const MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: Scaffold(
-                body: Center(
-                  child: Text("An error occured"),
-                ),
-              ),
-            );
-          }
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-                create: (_) {
-                  return themeChangeProvider;
-                },
-              ),
-              ChangeNotifierProvider(
-                create: (_) {
-                  return ProductsProvider();
-                },
-              ),
-              ChangeNotifierProvider(
-                create: (_) {
-                  return CartProvider();
-                },
-              ),
-              ChangeNotifierProvider(
-                create: (_) {
-                  return WishListProvider();
-                },
-              ),
-              ChangeNotifierProvider(
-                create: (_) {
-                  return ViewedProdProvider();
-                },
-              ),
-              ChangeNotifierProvider(
-                create: (_) {
-                  return OrdersProvider();
-                },
-              ),
-            ],
-            child: Consumer<DarkThemeProvider>(
-              builder: (context, themeProvider, child) {
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  title: 'Grocery App',
-                  theme: Styles.themeData(themeProvider.getDarkTheme, context),
-                  home: const FetchScreen(),
-                  routes: {
-                    OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
-                    FeedsScreen.routeName: (ctx) => const FeedsScreen(),
-                    ProductDetails.routeName: (ctx) => const ProductDetails(),
-                    WishListScreen.routeName: (ctx) => const WishListScreen(),
-                    OrdersScreen.routeName: (ctx) => const OrdersScreen(),
-                    ViewedRecentlyScreen.routeName: (ctx) =>
-                        const ViewedRecentlyScreen(),
-                    RegisterScreen.routeName: (ctx) => const RegisterScreen(),
-                    ForgetPasswordScreen.routeName: (ctx) =>
-                        const ForgetPasswordScreen(),
-                    CategoryScreen.routeName: (ctx) => const CategoryScreen(),
-                  },
-                );
-              },
             ),
           );
-        });
+        } else if (snapshot.hasError) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(
+                child: Text("An error occured"),
+              ),
+            ),
+          );
+        }
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) {
+                return themeChangeProvider;
+              },
+            ),
+            ChangeNotifierProvider(
+              create: (_) {
+                return ProductsProvider();
+              },
+            ),
+            ChangeNotifierProvider(
+              create: (_) {
+                return CartProvider();
+              },
+            ),
+            ChangeNotifierProvider(
+              create: (_) {
+                return WishListProvider();
+              },
+            ),
+            ChangeNotifierProvider(
+              create: (_) {
+                return ViewedProdProvider();
+              },
+            ),
+            ChangeNotifierProvider(
+              create: (_) {
+                return OrdersProvider();
+              },
+            ),
+          ],
+          child: Consumer<DarkThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Grocery App',
+                theme: Styles.themeData(themeProvider.getDarkTheme, context),
+                home: const FetchScreen(),
+                routes: {
+                  OnSaleScreen.routeName: (ctx) => const OnSaleScreen(),
+                  FeedsScreen.routeName: (ctx) => const FeedsScreen(),
+                  ProductDetails.routeName: (ctx) => const ProductDetails(),
+                  WishListScreen.routeName: (ctx) => const WishListScreen(),
+                  OrdersScreen.routeName: (ctx) => const OrdersScreen(),
+                  ViewedRecentlyScreen.routeName: (ctx) =>
+                      const ViewedRecentlyScreen(),
+                  RegisterScreen.routeName: (ctx) => const RegisterScreen(),
+                  ForgetPasswordScreen.routeName: (ctx) =>
+                      const ForgetPasswordScreen(),
+                  CategoryScreen.routeName: (ctx) => const CategoryScreen(),
+                },
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 }
+
+// class PaymentDemo extends StatelessWidget {
+//   const PaymentDemo({Key? key}) : super(key: key);
+//   Future<void> initPayment(
+//       {required String email,
+//       required double amount,
+//       required BuildContext context}) async {
+//     try {
+//       // 1. Create a payment intent on the server
+//       final response = await http.post(
+//           Uri.parse(
+//               'Your function'),
+//           body: {
+//             'email': email,
+//             'amount': amount.toString(),
+//           });
+
+//       final jsonResponse = jsonDecode(response.body);
+//       log(jsonResponse.toString());
+//       // 2. Initialize the payment sheet
+//       await Stripe.instance.initPaymentSheet(
+//           paymentSheetParameters: SetupPaymentSheetParameters(
+//         paymentIntentClientSecret: jsonResponse['paymentIntent'],
+//         merchantDisplayName: 'Grocery Flutter course',
+//         customerId: jsonResponse['customer'],
+//         customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
+//         testEnv: true,
+//         merchantCountryCode: 'SG',
+//       ));
+//       await Stripe.instance.presentPaymentSheet();
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         const SnackBar(
+//           content: Text('Payment is successful'),
+//         ),
+//       );
+//     } catch (errorr) {
+//       if (errorr is StripeException) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('An error occured ${errorr.error.localizedMessage}'),
+//           ),
+//         );
+//       } else {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('An error occured $errorr'),
+//           ),
+//         );
+//       }
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//           child: ElevatedButton(
+//         child: const Text('Pay 20\$'),
+//         onPressed: () async {
+//           await initPayment(
+//               amount: 50.0, context: context, email: 'email@test.com');
+//         },
+//       )),
+//     );
+//   }
+// }
