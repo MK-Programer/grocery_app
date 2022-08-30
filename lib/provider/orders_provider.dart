@@ -14,28 +14,30 @@ class OrdersProvider with ChangeNotifier {
   Future<void> fetchOrders() async {
     User? user = authInstance.currentUser;
     if (user != null) {
-      await FirebaseFirestore.instance.collection('orders').get().then(
+      await FirebaseFirestore.instance
+          .collection('orders')
+          .where('userId', isEqualTo: user.uid)
+          .get()
+          .then(
         (QuerySnapshot ordersSnapshot) {
           _orders = [];
           // _orders.clear();
           // ignore: avoid_function_literals_in_foreach_calls
           ordersSnapshot.docs.forEach(
             (element) {
-              if (element.id.contains(user.uid)) {
-                _orders.insert(
-                  0,
-                  OrderModel(
-                    orderId: element.get('orderId'),
-                    userId: element.get('userId'),
-                    productId: element.get('productId'),
-                    userName: element.get('userName'),
-                    price: element.get('price').toString(),
-                    imageUrl: element.get('imageUrl'),
-                    quantity: element.get('quantity').toString(),
-                    orderDate: element.get('orderDate'),
-                  ),
-                );
-              }
+              _orders.insert(
+                0,
+                OrderModel(
+                  orderId: element.get('orderId'),
+                  userId: element.get('userId'),
+                  productId: element.get('productId'),
+                  userName: element.get('userName'),
+                  price: element.get('price').toString(),
+                  imageUrl: element.get('imageUrl'),
+                  quantity: element.get('quantity').toString(),
+                  orderDate: element.get('orderDate'),
+                ),
+              );
             },
           );
         },
@@ -44,5 +46,10 @@ class OrdersProvider with ChangeNotifier {
     } else {
       return;
     }
+  }
+
+  void clearLocalOrders() {
+    _orders.clear();
+    notifyListeners();
   }
 }

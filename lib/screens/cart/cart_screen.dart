@@ -126,10 +126,10 @@ class CartScreen extends StatelessWidget {
                   try {
                     await FirebaseFirestore.instance
                         .collection('orders')
-                        .doc(user!.uid + orderId)
+                        .doc(orderId)
                         .set({
                       'orderId': orderId,
-                      'userId': user.uid,
+                      'userId': user!.uid,
                       'productId': value.productId,
                       'price': (getCurrentProduct.isOnSale
                               ? getCurrentProduct.salePrice

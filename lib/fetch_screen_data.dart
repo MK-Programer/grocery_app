@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grocery_app/consts/consts.dart';
 import 'package:grocery_app/consts/firebase_consts.dart';
+import 'package:grocery_app/provider/orders_provider.dart';
 import 'package:grocery_app/provider/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -32,12 +33,15 @@ class _FetchScreenState extends State<FetchScreen> {
         final cartProvider = Provider.of<CartProvider>(context, listen: false);
         final wishlistProvider =
             Provider.of<WishListProvider>(context, listen: false);
+        final ordersProvider =
+            Provider.of<OrdersProvider>(context, listen: false);
         final User? user = authInstance.currentUser;
 
         if (user == null) {
           await productsProvider.fetchProducts();
           cartProvider.clearLocalCart();
           wishlistProvider.clearLocalWishlist();
+          ordersProvider.clearLocalOrders();
         } else {
           await productsProvider.fetchProducts();
           await cartProvider.fetchCart();
